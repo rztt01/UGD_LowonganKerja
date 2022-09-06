@@ -64,16 +64,6 @@ class MainActivity : AppCompatActivity() {
             val username: String = inputUserName.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
-            // Pengecekan apakah inputan kosong
-            if (username.isEmpty()) {
-                checkRegister = true
-            }
-
-            // Pengecekan apakah inputan kosong
-            if (password.isEmpty()) {
-                checkRegister = true
-            }
-
             if (!checkRegister) return@OnClickListener
             val moveHome = Intent(this@MainActivity, RegisterActivity::class.java)
             startActivity(moveHome)
