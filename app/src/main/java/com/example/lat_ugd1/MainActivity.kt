@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             val username: String = inputUserName.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
-            if (!checkRegister) return@OnClickListener
+            if (checkRegister == true) return@OnClickListener
             val moveHome = Intent(this@MainActivity, RegisterActivity::class.java)
             startActivity(moveHome)
         })
