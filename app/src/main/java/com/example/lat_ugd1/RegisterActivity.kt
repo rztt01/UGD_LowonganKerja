@@ -15,6 +15,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var inputPasswordRegister: TextInputLayout
     private lateinit var inputConfirmPasswordRegister: TextInputLayout
     private lateinit var inputEmailRegister: TextInputLayout
+    private lateinit var inputTanggalLahir: TextInputLayout
+    private lateinit var inputNoTelp: TextInputLayout
     private lateinit var mainLayout2: ConstraintLayout
 
 
@@ -30,6 +32,8 @@ class RegisterActivity : AppCompatActivity() {
         inputPasswordRegister = findViewById(R.id.inputLayoutPassword2)
         inputConfirmPasswordRegister = findViewById(R.id.inputLayoutConfirmPassword)
         inputEmailRegister = findViewById(R.id.inputLayoutEmail)
+        inputTanggalLahir = findViewById(R.id.inputLayoutTanggalLahir)
+        inputNoTelp = findViewById(R.id.inputLayoutNoTelp)
         mainLayout2 = findViewById(R.id.mainLayout2)
         val btnRegister2: Button = findViewById(R.id.btnRegister2)
 
@@ -40,6 +44,8 @@ class RegisterActivity : AppCompatActivity() {
             val password: String = inputPasswordRegister.getEditText()?.getText().toString()
             val confirm: String = inputConfirmPasswordRegister.getEditText()?.getText().toString()
             val email: String = inputEmailRegister.getEditText()?.getText().toString()
+            val tanggallahir: String = inputTanggalLahir.getEditText()?.getText().toString()
+            val notelp: String = inputNoTelp.getEditText()?.getText().toString()
 
             // Pengecekan apakah inputan kosong
             if (username.isEmpty()) {
@@ -63,6 +69,19 @@ class RegisterActivity : AppCompatActivity() {
                 checkRegister = false
             }
 
+            // Pengecekan apakah inputan kosong
+            if (tanggallahir.isEmpty()) {
+                inputTanggalLahir.setError("Tanggal Lahir must be filled with text")
+                checkRegister = false
+            }
+
+            // Pengecekan apakah inputan kosong
+            if (notelp.isEmpty()) {
+                inputNoTelp.setError("Nomor Telpon must be filled with text")
+                checkRegister = false
+            }
+
+            if(username !=null && password !=null && email !=null && tanggallahir!=null && notelp!=null) checkRegister = true
             if (!checkRegister) return@OnClickListener
             val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
             startActivity(moveHome)
