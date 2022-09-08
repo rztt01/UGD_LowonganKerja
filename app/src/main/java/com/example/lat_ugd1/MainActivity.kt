@@ -55,6 +55,9 @@ class MainActivity : AppCompatActivity() {
                 checkLogin = true
                 Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
             }
+            if (checkLogin == true) return@OnClickListener
+            val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
+            startActivity(moveHome)
 
         })
 
@@ -65,8 +68,8 @@ class MainActivity : AppCompatActivity() {
             val password: String = inputPassword.getEditText()?.getText().toString()
 
             if (checkRegister == true) return@OnClickListener
-            val moveHome = Intent(this@MainActivity, RegisterActivity::class.java)
-            startActivity(moveHome)
+            val moveRegister = Intent(this@MainActivity, RegisterActivity::class.java)
+            startActivity(moveRegister)
         })
 
 
