@@ -81,7 +81,7 @@ class RegisterActivity : AppCompatActivity() {
                 checkRegister = false
             }
 
-            if(username !=null && password !=null && email !=null && tanggallahir!=null && notelp!=null) checkRegister = true
+            if(!username.isEmpty() && !password.isEmpty() && !email.isEmpty() && !tanggallahir.isEmpty() && !notelp.isEmpty()) checkRegister = true
             if (!checkRegister) return@OnClickListener
             val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
             startActivity(moveHome)
