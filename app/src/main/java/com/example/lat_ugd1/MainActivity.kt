@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
             if(userData!=null){
                 inputUserName.setText(userData.getString("username"))
+                inputPassword.setText(userData.getString("password"))
             }
         }
     }
