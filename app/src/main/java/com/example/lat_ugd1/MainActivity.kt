@@ -33,8 +33,13 @@ class MainActivity : AppCompatActivity() {
         // Aksi pada btnLogin
         btnLogin.setOnClickListener(View.OnClickListener {
             var checkLogin = false
+            var userData = intent.extras
             val username: String = inputUserName.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
+
+            if(userData != null){
+                inputUserName.getEditText()?.setText(userData.getString("username"))
+            }
 
             // Pengecekan apakah inputan kosong
             if (username.isEmpty()) {
@@ -47,14 +52,16 @@ class MainActivity : AppCompatActivity() {
                 inputPassword.setError("Password must be filled with text")
                 checkLogin = false
             }
-
-            // Ganti Password dengan NPM kalian.
-            if (username == "admin" && password == "0724") {
-                inputUserName.getEditText()?.setText("")
-                inputPassword.getEditText()?.setText("")
-                checkLogin = true
-                Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
+            if(userData != null){
+                if (username == userData.getString("username") && password == userData.getString("password")) {
+                    inputUserName.getEditText()?.setText("")
+                    inputPassword.getEditText()?.setText("")
+                    checkLogin = true
+                    Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
+                }
             }
+            // Ganti Password dengan NPM kalian.
+
             if (checkLogin == true) return@OnClickListener
             val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
             startActivity(moveHome)

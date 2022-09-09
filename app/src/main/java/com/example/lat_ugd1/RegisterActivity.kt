@@ -40,6 +40,7 @@ class RegisterActivity : AppCompatActivity() {
         // Aksi pada btnLogin
         btnRegister2.setOnClickListener(View.OnClickListener {
             var checkRegister = false
+            var dataUser = Bundle()
             val username: String = inputUserNameRegister.getEditText()?.getText().toString()
             val password: String = inputPasswordRegister.getEditText()?.getText().toString()
             val confirm: String = inputConfirmPasswordRegister.getEditText()?.getText().toString()
@@ -83,7 +84,10 @@ class RegisterActivity : AppCompatActivity() {
 
             if(!username.isEmpty() && !password.isEmpty() && !email.isEmpty() && !tanggallahir.isEmpty() && !notelp.isEmpty()) checkRegister = true
             if (!checkRegister) return@OnClickListener
+            dataUser.putString("username", username)
+            dataUser.putString("password", password)
             val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
+            moveHome.putExtras(dataUser)
             startActivity(moveHome)
         })
     }
