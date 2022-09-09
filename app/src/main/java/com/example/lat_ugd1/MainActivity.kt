@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity() {
@@ -37,9 +38,7 @@ class MainActivity : AppCompatActivity() {
             val username: String = inputUserName.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
-            if(userData != null){
-                inputUserName.getEditText()?.setText(userData.getString("username"))
-            }
+            setText()
 
             // Pengecekan apakah inputan kosong
             if (username.isEmpty()) {
@@ -79,7 +78,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(moveRegister)
         })
 
-
-
         }
+    fun setText(){
+        val userData = intent.extras
+        val editUsername: TextInputEditText = findViewById(R.id.inputLayoutUsername)
+
+        if(userData!=null){
+            editUsername.setText(userData.getString("username"))
+        }
+    }
     }
