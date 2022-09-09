@@ -50,6 +50,18 @@ class MainActivity : AppCompatActivity() {
                 inputPassword.setError("Password must be filled with text")
                 checkLogin = false
             }
+
+            if (userData != null) {
+                if (username != userData.getString("username")) {
+                    inputUserName.setError("Username incorrect")
+                    checkLogin = false
+                } else if (password != userData.getString("password")) {
+                    inputPassword.setError("Password incorrect")
+                    checkLogin = false
+                }
+            }
+
+
             if(userData != null){
                 if (username == userData.getString("username") && password == userData.getString("password")) {
                     checkLogin = true
