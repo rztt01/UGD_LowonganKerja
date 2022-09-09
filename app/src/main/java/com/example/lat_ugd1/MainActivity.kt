@@ -12,22 +12,23 @@ import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity() {
     // Atribute yang akan kita pakai
-    private lateinit var inputUserName: TextInputLayout
-    private lateinit var inputPassword: TextInputLayout
+    private lateinit var inputUserName: TextInputEditText
+    private lateinit var inputPassword: TextInputEditText
     private lateinit var mainLayout: ConstraintLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setText()
 
         // Ubah Title pada App Bar Aplikasi
         setTitle("User Login")
 
         // Hubungkan variabel dengan view di layoutnya.
-        val inputUsername = findViewById<TextInputLayout>(R.id.inputLayoutUsername)
-        val inputPassword = findViewById<TextInputLayout>(R.id.inputLayoutPassword)
-        val mainLayout = findViewById<ConstraintLayout>(R.id.mainLayout)
+        inputUserName = findViewById(R.id.inputUsername)
+        inputPassword = findViewById(R.id.inputPassword)
+        mainLayout = findViewById(R.id.mainLayout)
         val btnRegister: Button = findViewById(R.id.btnRegister)
         val btnLogin: Button = findViewById(R.id.btnLogin)
 
@@ -35,10 +36,8 @@ class MainActivity : AppCompatActivity() {
         btnLogin.setOnClickListener(View.OnClickListener {
             var checkLogin = false
             val userData = intent.extras
-            val username: String = inputUsername.getEditText()?.getText().toString()
-            val password: String = inputPassword.getEditText()?.getText().toString()
-
-            setText()
+            val username: String = inputUserName.getText().toString()
+            val password: String = inputPassword.getText().toString()
 
             // Pengecekan apakah inputan kosong
             if (username.isEmpty()) {
@@ -54,30 +53,38 @@ class MainActivity : AppCompatActivity() {
             if(userData != null){
                 if (username == userData.getString("username") && password == userData.getString("password")) {
                     checkLogin = true
-                    Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
                 }
             }
-            // Ganti Password dengan NPM kalian.
 
-            if (checkLogin == false) return@OnClickListener
-            val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
-            startActivity(moveHome)
+            if (checkLogin != true) {
+                return@OnClickListener
+            }else{
+                Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
+                val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
+                startActivity(moveHome)
+            }
 
         })
 
         // Aksi btnRgister ketika di klik
         btnRegister.setOnClickListener(View.OnClickListener {
+            var checkRegister = false
+            val username: String = inputUserName.getText().toString()
+            val password: String = inputPassword.getText().toString()
+
+            if (checkRegister == true) return@OnClickListener
             val moveRegister = Intent(this@MainActivity, RegisterActivity::class.java)
             startActivity(moveRegister)
         })
 
         }
-    fun setText(){
-        val userData = intent.extras
-        val editUsername: TextInputEditText = findViewById(R.id.inputLayoutUsername)
+        fun setText(){
+            inputUserName = findViewById(R.id.inputUsername)
+            inputPassword = findViewById(R.id.inputPassword)
+            val userData = intent.extras
 
-        if(userData!=null){
-            editUsername.setText(userData.getString("username"))
+            if(userData!=null){
+                inputUserName.setText(userData.getString("username"))
+            }
         }
-    }
     }
