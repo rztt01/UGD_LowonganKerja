@@ -61,8 +61,8 @@ class RegisterActivity : AppCompatActivity() {
                 checkRegister = false
             // Pengecekan apakah input confirm password sama dengan password
             } else if (!password.equals(confirm)) {
-            inputConfirmPasswordRegister.setError("Password would not be matched")
-            checkRegister = false
+                inputConfirmPasswordRegister.setError("Password would not be matched")
+                checkRegister = false
             }
 
             // Pengecekan apakah inputan kosong
@@ -83,15 +83,20 @@ class RegisterActivity : AppCompatActivity() {
                 checkRegister = false
             }
 
-            if(!username.isEmpty() && !password.isEmpty() && !email.isEmpty() && !tanggallahir.isEmpty() && !notelp.isEmpty()) checkRegister = true
+            if(username.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty() && tanggallahir.isNotEmpty() && notelp.isNotEmpty()) {
+                dataUser.putString("username", username)
+                dataUser.putString("password", password)
+                checkRegister = true
+            }
+
             if (!checkRegister) return@OnClickListener
 
-            dataUser.putString("username", username)
-            dataUser.putString("password", password)
+            if (checkRegister == true) {
+                val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
+                moveHome.putExtras(dataUser)
+                startActivity(moveHome)
+            }
 
-            val moveLogin = Intent(this@RegisterActivity, MainActivity::class.java)
-            moveLogin.putExtras(dataUser)
-            startActivity(moveLogin)
         })
     }
 }
