@@ -6,7 +6,7 @@ class Home( var lowongan:String, var nama: String, var alamat:String,var gaji:St
     companion object{
         @JvmField
         var listOfHome = arrayOf(
-            Home("Barista", "Cemara Coffe Shop","jl.Babarsai, Yogyakarta", "Rp 500.000 - Rp 1.000.000" ),
+            Home("Barista", "Cemara Coffe Shop","jl.Babarsai, Yogyakarta", "Rp 500.000 - Rp 1.000.000", R.drawable.barista),
         )
     }
 }

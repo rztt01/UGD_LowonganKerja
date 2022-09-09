@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lat_ugd1.entity.Home
 
 class FragmentHome : Fragment(){
     override fun onCreateView(
@@ -20,13 +21,13 @@ class FragmentHome : Fragment(){
     override  fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(context)
-        val adapter : RVHomeAdapter = RVHomeAdapter(Home.listOfMahasiswa)
+        val adapter : RVHomeAdapter = RVHomeAdapter(Home.listOfHome)
 
-        val rvMahasiswa : RecyclerView = view.findViewById(R.id.rv_mahasiswa)
+        val rvHome : RecyclerView = view.findViewById(R.id.rv_home)
 
-        rvMahasiswa.layoutManager = layoutManager
+        rvHome.layoutManager = layoutManager
 
-        rvMahasiswa.adapter = adapter
+        rvHome.adapter = adapter
     }
 
 }
