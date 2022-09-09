@@ -5,16 +5,16 @@
         android:id="@+id/page_1"
         android:enabled="true"
         android:icon="@drawable/ic_home_24"
-        android:title="@string/text_label_1"/>
+        android:title="Home"/>
     <item
         android:id="@+id/page_2"
         android:enabled="true"
         android:icon="@drawable/ic_profil_24"
-        android:title="@string/text_label_2"/>
+        android:title="Profile"/>
     <item
         android:id="@+id/page_3"
         android:enabled="true"
         android:icon="@drawable/ic_notification_24"
-        android:title="@string/text_label_3"/>
+        android:title="Notification"/>
 
 </menu>
