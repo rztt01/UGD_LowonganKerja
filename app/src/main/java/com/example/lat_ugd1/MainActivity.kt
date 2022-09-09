@@ -25,17 +25,17 @@ class MainActivity : AppCompatActivity() {
         setTitle("User Login")
 
         // Hubungkan variabel dengan view di layoutnya.
-        inputUserName = findViewById(R.id.inputLayoutUsername)
-        inputPassword = findViewById(R.id.inputLayoutPassword)
-        mainLayout = findViewById(R.id.mainLayout)
+        val inputUsername = findViewById<TextInputLayout>(R.id.inputLayoutUsername)
+        val inputPassword = findViewById<TextInputLayout>(R.id.inputLayoutPassword)
+        val mainLayout = findViewById<ConstraintLayout>(R.id.mainLayout)
         val btnRegister: Button = findViewById(R.id.btnRegister)
         val btnLogin: Button = findViewById(R.id.btnLogin)
 
         // Aksi pada btnLogin
         btnLogin.setOnClickListener(View.OnClickListener {
             var checkLogin = false
-            var userData = intent.extras
-            val username: String = inputUserName.getEditText()?.getText().toString()
+            val userData = intent.extras
+            val username: String = inputUsername.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
             setText()
@@ -53,15 +53,13 @@ class MainActivity : AppCompatActivity() {
             }
             if(userData != null){
                 if (username == userData.getString("username") && password == userData.getString("password")) {
-                    inputUserName.getEditText()?.setText("")
-                    inputPassword.getEditText()?.setText("")
                     checkLogin = true
                     Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
                 }
             }
             // Ganti Password dengan NPM kalian.
 
-            if (checkLogin == true) return@OnClickListener
+            if (checkLogin == false) return@OnClickListener
             val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
             startActivity(moveHome)
 
@@ -69,11 +67,6 @@ class MainActivity : AppCompatActivity() {
 
         // Aksi btnRgister ketika di klik
         btnRegister.setOnClickListener(View.OnClickListener {
-            var checkRegister = false
-            val username: String = inputUserName.getEditText()?.getText().toString()
-            val password: String = inputPassword.getEditText()?.getText().toString()
-
-            if (checkRegister == true) return@OnClickListener
             val moveRegister = Intent(this@MainActivity, RegisterActivity::class.java)
             startActivity(moveRegister)
         })
