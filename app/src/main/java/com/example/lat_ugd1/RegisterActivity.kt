@@ -83,7 +83,7 @@ class RegisterActivity : AppCompatActivity() {
                 checkRegister = false
             }
 
-            if(username.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty() && tanggallahir.isNotEmpty() && notelp.isNotEmpty()) {
+            if(username.isNotEmpty() && password.isNotEmpty() && confirm.isNotEmpty() && email.isNotEmpty() && tanggallahir.isNotEmpty() && notelp.isNotEmpty() && password == confirm) {
                 dataUser.putString("username", username)
                 dataUser.putString("password", password)
                 checkRegister = true
