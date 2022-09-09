@@ -24,8 +24,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        // Ubah Title pada App Bar Aplikasi
-        setTitle("User Register")
+        supportActionBar?.hide()
 
         // Hubungkan variabel dengan view di layoutnya.
         inputUserNameRegister = findViewById(R.id.inputLayoutUsername2)

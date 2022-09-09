@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setText()
 
+        supportActionBar?.hide()
+
         // Ubah Title pada App Bar Aplikasi
         setTitle("User Login")
 
