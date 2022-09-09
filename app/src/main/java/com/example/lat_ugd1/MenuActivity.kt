@@ -23,21 +23,22 @@ class MenuActivity : AppCompatActivity() {
         val fragment3 = FragmentNotification()
 
         setCurrentFragment(fragment1)
-        bottomNavigation = findViewById(R.id.bottom_navigation_view) as BottomNavigationView
-        bottomNavigation.setOnNavigationItemReselectedListener{
-            if()
+        bottomNavigation = findViewById(R.id.bottom_navigation) as BottomNavigationView
+        bottomNavigation.setOnNavigationItemReselectedListener {
+            if (it.itemId == R.id.page_1) {
+                setCurrentFragment(fragment1)
+            } else if (it.itemId == R.id.page_2) {
+                setCurrentFragment(fragment2)
+            } else {
+                setCurrentFragment(fragment3)
+            }
+            true
         }
 
-        NavigationBarItemView.OnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.item1 -> {
-                    true
-                }
-                R.id.item2 -> {
-                    true
-                }
-                else -> false
-            }
-        }
     }
+    private fun setCurrentFragment(fragment: Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.nav_fragment,fragment)
+            commit()
+        }
 }
