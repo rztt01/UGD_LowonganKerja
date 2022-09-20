@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class SplashScreen : AppCompatActivity() {
-    
+
     var prevStarted = "yes"
     override fun onResume() {
         super.onResume()
