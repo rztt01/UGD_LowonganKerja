@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.lat_ugd1.databinding.ActivityRegisterBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 
@@ -19,9 +20,15 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var inputNoTelp: TextInputLayout
     private lateinit var mainLayout2: ConstraintLayout
 
+    private lateinit var binding: ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         setContentView(R.layout.activity_register)
 
         supportActionBar?.hide()
