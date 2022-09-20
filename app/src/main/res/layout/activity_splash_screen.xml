@@ -12,6 +12,25 @@
         android:id="@+id/SplashScreenImg"
         android:layout_width="300dp"
         android:layout_height="200dp"
+        android:src="@drawable/logo_job"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/SplashScreenImg"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="Your dreams just a click away"
+        android:textColor="@color/blue"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        android:textAlignment="center"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
