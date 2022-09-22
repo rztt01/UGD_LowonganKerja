@@ -7,8 +7,13 @@ import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.lat_ugd1.databinding.ActivityRegisterBinding
+import com.example.lat_ugd1.room.User
+import com.example.lat_ugd1.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
     // Atribute yang akan kita pakai
@@ -21,6 +26,9 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var mainLayout2: ConstraintLayout
 
     private lateinit var binding: ActivityRegisterBinding
+
+    val db by lazy { UserDB(this) }
+    private var userId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +106,12 @@ class RegisterActivity : AppCompatActivity() {
             if (!checkRegister) return@OnClickListener
 
             if (checkRegister == true) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    db.userDao().addUser(
+                        User(0, username, password, email, tanggallahir, notelp)
+                    )
+                    finish()
+                }
                 val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
                 moveHome.putExtras(dataUser)
                 startActivity(moveHome)
