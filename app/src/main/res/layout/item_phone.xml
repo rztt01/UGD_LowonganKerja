@@ -33,10 +33,19 @@
                 android:layout_gravity="center"
                 android:textColor="#605E5E"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
+        <TextView
+            android:text="082295640585"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
 
 
     </LinearLayout>
