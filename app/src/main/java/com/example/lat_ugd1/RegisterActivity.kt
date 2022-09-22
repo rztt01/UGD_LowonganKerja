@@ -9,7 +9,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.lat_ugd1.databinding.ActivityRegisterBinding
 import com.example.lat_ugd1.room.User
 import com.example.lat_ugd1.room.UserDB
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
