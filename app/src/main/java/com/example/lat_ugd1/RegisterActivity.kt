@@ -15,14 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
-    // Atribute yang akan kita pakai
-    private lateinit var inputUserNameRegister: TextInputLayout
-    private lateinit var inputPasswordRegister: TextInputLayout
-    private lateinit var inputConfirmPasswordRegister: TextInputLayout
-    private lateinit var inputEmailRegister: TextInputLayout
-    private lateinit var inputTanggalLahir: TextInputLayout
-    private lateinit var inputNoTelp: TextInputLayout
-    private lateinit var mainLayout2: ConstraintLayout
 
     private lateinit var binding: ActivityRegisterBinding
 
@@ -40,26 +32,25 @@ class RegisterActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        // Hubungkan variabel dengan view di layoutnya.
-        inputUserNameRegister = findViewById(R.id.inputLayoutUsername2)
-        inputPasswordRegister = findViewById(R.id.inputLayoutPassword2)
-        inputConfirmPasswordRegister = findViewById(R.id.inputLayoutConfirmPassword)
-        inputEmailRegister = findViewById(R.id.inputLayoutEmail)
-        inputTanggalLahir = findViewById(R.id.inputLayoutTanggalLahir)
-        inputNoTelp = findViewById(R.id.inputLayoutNoTelp)
-        mainLayout2 = findViewById(R.id.mainLayout2)
-        val btnRegister2: Button = findViewById(R.id.btnRegister2)
+        val dataUser = Bundle()
 
+        val inputUserNameRegister = binding.inputLayoutUsername2
+        val inputPasswordRegister= binding.inputLayoutPassword2
+        val inputConfirmPasswordRegister = binding.inputConfirmPassword
+        val inputTanggalLahir = binding.inputLayoutTanggalLahir
+        val inputEmailRegister = binding.inputLayoutEmail
+        val inputNoTelp = binding.inputLayoutNoTelp
+
+        val btnRegister2: Button = binding.btnRegister2
         // Aksi pada btnLogin
         btnRegister2.setOnClickListener(View.OnClickListener {
             var checkRegister = false
-            val dataUser = Bundle()
 
             val username: String = inputUserNameRegister.getEditText()?.getText().toString()
             val password: String = inputPasswordRegister.getEditText()?.getText().toString()
-            val confirm: String = inputConfirmPasswordRegister.getEditText()?.getText().toString()
+            val confirm: String = inputConfirmPasswordRegister.getText().toString()
             val email: String = inputEmailRegister.getEditText()?.getText().toString()
-            val tanggallahir: String = inputTanggalLahir.getEditText()?.getText().toString()
+            val tanggallahir: String =  inputTanggalLahir.getEditText()?.getText().toString()
             val notelp: String = inputNoTelp.getEditText()?.getText().toString()
 
             // Pengecekan apakah inputan kosong
