@@ -50,7 +50,7 @@ class SplashScreen : AppCompatActivity() {
     }
 
     private fun setStatus(status:String){
-        sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("pref", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
 
         editor.putString("status", status)
