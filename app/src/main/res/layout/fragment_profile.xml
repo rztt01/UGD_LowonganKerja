@@ -9,13 +9,20 @@
     android:layout_gravity="center"
     android:background="@color/babypurple">
 
-    <include layout="@layout/item_photo"/>
+    <include
+        layout="@layout/item_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
+<<<<<<< Updated upstream
 
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -32,6 +39,19 @@
                 android:textColor="@color/black"
                 android:textSize="40sp"
                 android:textStyle="bold" />
+=======
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="250">
+
+            <include layout="@layout/item_email" />
+
+            <include layout="@layout/item_tgl" />
+
+            <include layout="@layout/item_phone" />
+
+>>>>>>> Stashed changes
         </LinearLayout>
 
     </ScrollView>

@@ -9,17 +9,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="200dp"
         android:layout_centerInParent="true">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="80dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="60dp"
             app:cardCornerRadius="15dp"
             app:cardElevation="10dp"
             app:cardUseCompatPadding="true"
-            card_view:cardCornerRadius="50dp">
+            card_view:cardCornerRadius="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,11 +31,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="110dp"
+                    android:layout_marginTop="22dp"
                     android:gravity="center"
                     android:text="Vinsa"
                     android:textColor="@color/black"
-                    android:textSize="40sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <View
@@ -65,8 +65,8 @@
         android:elevation="15dp"
         android:padding="5dp"
         android:layout_centerHorizontal="true"
-        android:layout_width="250dp"
-        android:layout_height="250dp"/>
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
 
 
 </RelativeLayout>
