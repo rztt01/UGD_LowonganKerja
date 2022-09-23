@@ -9,12 +9,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="240dp"
         android:layout_centerInParent="true">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginTop="60dp"
             app:cardCornerRadius="15dp"
             app:cardElevation="10dp"
@@ -38,10 +38,16 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#79D6D1D1" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEdit"
+                    android:gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginRight="120dp"
+                    android:text="Edit" />
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
