@@ -37,6 +37,7 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/tvEmail"
             android:text="vinsariest@gmail.com"
             android:textColor="@color/black"
             android:textSize="14sp"

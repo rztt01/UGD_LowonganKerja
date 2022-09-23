@@ -37,6 +37,7 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/tvPhone"
             android:text="082295640585"
             android:textColor="@color/black"
             android:textSize="14sp"

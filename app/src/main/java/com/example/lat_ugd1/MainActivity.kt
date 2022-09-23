@@ -1,26 +1,34 @@
 package com.example.lat_ugd1
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.lat_ugd1.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     // Atribute yang akan kita pakai
     private lateinit var inputUserName: TextInputEditText
     private lateinit var inputPassword: TextInputEditText
     private lateinit var mainLayout: ConstraintLayout
-
+    var sharedPreferences : SharedPreferences? = null
+    val db by lazy { UserDB(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setText()
+        var iduser = "id_user"
+        var pref = "preference"
 
         supportActionBar?.hide()
 
@@ -33,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         mainLayout = findViewById(R.id.mainLayout)
         val btnRegister: Button = findViewById(R.id.btnRegister)
         val btnLogin: Button = findViewById(R.id.btnLogin)
+        sharedPreferences = getSharedPreferences(pref, Context.MODE_PRIVATE)
 
         // Aksi pada btnLogin
         btnLogin.setOnClickListener(View.OnClickListener {
@@ -62,7 +71,18 @@ class MainActivity : AppCompatActivity() {
                     checkLogin = false
                 }
             }
-
+            CoroutineScope(Dispatchers.IO).launch {
+                if (!username.isEmpty() && !password.isEmpty()) {
+                    val users = db.userDao().getUsers()
+                    for (i in users) {
+                        if (username == i.username ) {
+                            val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
+                            editor.putInt(iduser, i.id)
+                            editor.apply()
+                        }
+                    }
+                }
+            }
 
             if(userData != null){
                 if (username == userData.getString("username") && password == userData.getString("password")) {
