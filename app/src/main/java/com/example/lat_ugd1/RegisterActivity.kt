@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-
     val db by lazy { UserDB(this) }
     private var userId: Int = 0
 
