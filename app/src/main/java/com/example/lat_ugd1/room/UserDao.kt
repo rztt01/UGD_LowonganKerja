@@ -1,10 +1,8 @@
 package com.example.lat_ugd1.room
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
+@Dao
 interface UserDao {
     @Insert
     suspend fun addUser(user: User)

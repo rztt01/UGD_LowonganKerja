@@ -1,15 +1,13 @@
 package com.example.lat_ugd1
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.app.AppCompatActivity
 import com.example.lat_ugd1.databinding.ActivityRegisterBinding
 import com.example.lat_ugd1.room.User
 import com.example.lat_ugd1.room.UserDB
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,11 +25,9 @@ class RegisterActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        setContentView(R.layout.activity_register)
-
         supportActionBar?.hide()
 
-        val dataUser = Bundle()
+
 
         val inputUserNameRegister = binding.inputLayoutUsername2
         val inputPasswordRegister= binding.inputLayoutPassword2
@@ -44,6 +40,7 @@ class RegisterActivity : AppCompatActivity() {
         // Aksi pada btnLogin
         btnRegister2.setOnClickListener(View.OnClickListener {
             var checkRegister = false
+            val dataUser = Bundle()
 
             val username: String = inputUserNameRegister.getEditText()?.getText().toString()
             val password: String = inputPasswordRegister.getEditText()?.getText().toString()

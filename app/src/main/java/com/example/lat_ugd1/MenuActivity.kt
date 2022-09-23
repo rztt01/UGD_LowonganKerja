@@ -22,7 +22,6 @@ class MenuActivity : AppCompatActivity() {
         val fragment2 = FragmentProfile()
         val fragment3 = FragmentNotification()
 
-        name = findViewById(R.id.username)
 
         setCurrentFragment(fragment1)
         bottomNavigation = findViewById(R.id.bottom_navigation) as BottomNavigationView
@@ -30,7 +29,7 @@ class MenuActivity : AppCompatActivity() {
             if (it.itemId == R.id.page_1) {
                 setCurrentFragment(fragment1)
             } else if (it.itemId == R.id.page_2) {
-                getUser()
+//                getUser()
                 setCurrentFragment(fragment2)
             } else {
                 setCurrentFragment(fragment3)
