@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "270006657825",
+    "project_id": "tubes-loker",
+    "storage_bucket": "tubes-loker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270006657825:android:f57eea316254a3e9fd1460",
+        "android_client_info": {
+          "package_name": "com.example.lat_ugd1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270006657825-3idu2ab3c1isru7lejer0ojf4nsjvmaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxorfMkttzzqwPC7vI9ixoUZOTxcLXX18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270006657825-3idu2ab3c1isru7lejer0ojf4nsjvmaj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
