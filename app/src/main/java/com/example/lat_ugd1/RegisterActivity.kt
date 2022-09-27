@@ -13,12 +13,15 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import com.example.lat_ugd1.databinding.ActivityRegisterBinding
 import com.example.lat_ugd1.room.User
 import com.example.lat_ugd1.room.UserDB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -127,10 +130,16 @@ class RegisterActivity : AppCompatActivity() {
         //broadcastIntent.putExtra("toastMessage",)
         val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+        val bitmap_bigPicture = ContextCompat.getDrawable(this, R.drawable.ic_regis_success)?.toBitmap()
+
+        val bigPictureStyle = NotificationCompat.BigPictureStyle()
+            .bigPicture(bitmap_bigPicture)
+
         val builder = NotificationCompat.Builder(this, CHANNEL_ID_1)
             .setSmallIcon(R.drawable.ic_baseline_looks_one_24)
             .setContentTitle("Notification Register")
             .setContentText("Helo! Register Success.")
+            .setStyle(bigPictureStyle)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setColor(Color.BLUE)
             .setAutoCancel(true)
