@@ -1,10 +1,18 @@
 package com.example.lat_ugd1
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.lat_ugd1.databinding.ActivityRegisterBinding
 import com.example.lat_ugd1.room.User
 import com.example.lat_ugd1.room.UserDB
@@ -17,6 +25,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     val db by lazy { UserDB(this) }
     private var userId: Int = 0
+    private val CHANNEL_ID_1 = "channerl_notification_01"
+    private val notificationId1 = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +35,7 @@ class RegisterActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        supportActionBar?.hide()
-
-
+        createNotificationChannel()
 
         val inputUserNameRegister = binding.inputLayoutUsername2
         val inputPasswordRegister= binding.inputLayoutPassword2
@@ -96,6 +104,7 @@ class RegisterActivity : AppCompatActivity() {
                     db.userDao().addUser(
                         User(0, username, password, email, tanggallahir, notelp)
                     )
+                    sendNotification()
                     finish()
                 }
                 val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
@@ -104,5 +113,49 @@ class RegisterActivity : AppCompatActivity() {
             }
 
         })
+
+    }
+
+    private fun sendNotification() {
+        val intent : Intent = Intent(this, RegisterActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        val pendingIntent : PendingIntent = PendingIntent.getActivity(this, 0,intent, 0)
+
+        val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
+        //broadcastIntent.putExtra("toastMessage",)
+        val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID_1)
+            .setSmallIcon(R.drawable.ic_baseline_looks_one_24)
+            .setContentTitle("Notification Register")
+            .setContentText("Helo! Register Success.")
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            .setColor(Color.BLUE)
+            .setAutoCancel(true)
+            .setOnlyAlertOnce(true)
+            .setContentIntent(pendingIntent)
+            .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT) // untuk menentukan posisi notif dimana
+        with(NotificationManagerCompat.from(this)){
+            notify(notificationId1,builder.build())
+        }
+    }
+
+    private fun createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "Notification Title"
+            val descriptionText = "Notification Description"
+
+            val channel1 = NotificationChannel(CHANNEL_ID_1,name, NotificationManager.IMPORTANCE_DEFAULT).apply {
+                description = descriptionText
+            }
+
+            val notificationManager : NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel1)
+        }
+
     }
 }
