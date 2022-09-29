@@ -2,10 +2,11 @@ package com.example.lat_ugd1
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lat_ugd1.room.Constant
-import kotlinx.android.synthetic.main.activity_edit2.*
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,6 +14,10 @@ import room2.Note
 import room2.NoteDB
 
 class EditActivity2 : AppCompatActivity() {
+    private lateinit var edit_title: TextInputEditText
+    private lateinit var edit_note: TextInputEditText
+    val button_update: Button = findViewById(R.id.button_update)
+    val button_save: Button = findViewById(R.id.button_save)
     val db by lazy { NoteDB(this) }
     private var noteId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +30,7 @@ class EditActivity2 : AppCompatActivity() {
     fun setupView(){
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         val intentType = intent.getIntExtra("intent_type", 0)
+
         when (intentType){
             Constant.TYPE_CREATE -> {
                 button_update.visibility = View.GONE
