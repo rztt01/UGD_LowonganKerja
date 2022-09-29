@@ -1,23 +1,11 @@
 package com.example.lat_ugd1
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lat_ugd1.room.Constant
 import kotlinx.android.synthetic.main.fragment_notification.*
 import kotlinx.coroutines.CoroutineScope
@@ -51,31 +39,35 @@ class FragmentNotification: Fragment(){
                 deleteDialog(note)
             }
         })
-        list_notif.apply {
-            layoutManager = LinearLayoutManager(applicationContext)
-            adapter = noteAdapter
-        }
+//        list_notif.apply {
+//            layoutManager = LinearLayoutManager(
+//
+//
+//
+//                applicationContext)
+//            adapter = noteAdapter
+//        }
     }
 
     private fun deleteDialog(note: Note){
-        val alertDialog = AlertDialog.Builder(this)
-        alertDialog.apply {
-            setTitle("Confirmation")
-            setMessage("Are You Sure to delete this data From ${note.title}?")
-            setNegativeButton("Cancel", DialogInterface.OnClickListener
-            { dialogInterface, i ->
-                dialogInterface.dismiss()
-            })
-            setPositiveButton("Delete", DialogInterface.OnClickListener
-            { dialogInterface, i ->
-                dialogInterface.dismiss()
-                CoroutineScope(Dispatchers.IO).launch {
-                    db?.noteDao()?.deleteNote(note)
-                    loadData()
-                }
-            })
-        }
-        alertDialog.show()
+//        val alertDialog = AlertDialog.Builder(this)
+//        alertDialog.apply {
+//            setTitle("Confirmation")
+//            setMessage("Are You Sure to delete this data From ${note.title}?")
+//            setNegativeButton("Cancel", DialogInterface.OnClickListener
+//            { dialogInterface, i ->
+//                dialogInterface.dismiss()
+//            })
+//            setPositiveButton("Delete", DialogInterface.OnClickListener
+//            { dialogInterface, i ->
+//                dialogInterface.dismiss()
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    db?.noteDao()?.deleteNote(note)
+//                    loadData()
+//                }
+//            })
+//        }
+//        alertDialog.show()
     }
     override fun onStart() {
         super.onStart()
@@ -100,11 +92,11 @@ class FragmentNotification: Fragment(){
     }
     //pick data dari Id yang sebagai primary key
     fun intentEdit(noteId : Int, intentType: Int){
-        startActivity(
-            Intent(applicationContext, EditActivity2::class.java)
-                .putExtra("intent_id", noteId)
-                .putExtra("intent_type", intentType)
-        )
+//        startActivity(
+//            Intent(applicationContext, EditActivity2::class.java)
+//                .putExtra("intent_id", noteId)
+//                .putExtra("intent_type", intentType)
+//        )
     }
 
 }

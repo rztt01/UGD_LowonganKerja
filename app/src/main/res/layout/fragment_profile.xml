@@ -78,12 +78,6 @@
             android:layout_height="150dp"/>
 
     </RelativeLayout>
-<!--    <include-->
-<!--        layout="@layout/item_photo"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="16dp"-->
-<!--        android:layout_marginRight="16dp" />-->
 
 
     <ScrollView
@@ -256,28 +250,6 @@
                     </TextView>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-<!--            <TextView-->
-<!--                android:id="@+id/username"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="110dp"-->
-<!--                android:gravity="center"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="40sp"-->
-<!--                android:textStyle="bold" />-->
-
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_marginTop="250">-->
-
-<!--            <include layout="@layout/item_email" />-->
-
-<!--            <include layout="@layout/item_tgl" />-->
-
-<!--            <include layout="@layout/item_phone" />-->
-
-<!--&gt;>>>>>> Stashed changes-->
         </LinearLayout>
 
     </ScrollView>
