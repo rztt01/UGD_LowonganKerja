@@ -3,6 +3,7 @@ package com.example.lat_ugd1
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lat_ugd1.room.Constant
@@ -14,13 +15,16 @@ import room2.Note
 import room2.NoteDB
 
 class EditActivity2 : AppCompatActivity() {
-    private lateinit var edit_title: TextInputEditText
-    private lateinit var edit_note: TextInputEditText
+    private lateinit var edit_title: EditText
+    private lateinit var edit_note: EditText
     val button_update: Button = findViewById(R.id.button_update)
     val button_save: Button = findViewById(R.id.button_save)
     val db by lazy { NoteDB(this) }
     private var noteId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
+        edit_note = findViewById(R.id.edit_note)
+        edit_title = findViewById(R.id.edit_title)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit2)
         setupView()
