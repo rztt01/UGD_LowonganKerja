@@ -1,13 +1,21 @@
 package com.example.lat_ugd1
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lat_ugd1.room.Constant
@@ -44,13 +52,13 @@ class FragmentNotification: Fragment(){
             }
         })
         list_notif.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(applicationContext)
             adapter = noteAdapter
         }
     }
 
     private fun deleteDialog(note: Note){
-        val alertDialog = context?.let { AlertDialog.Builder(it) }
+        val alertDialog = AlertDialog.Builder(this)
         alertDialog.apply {
             setTitle("Confirmation")
             setMessage("Are You Sure to delete this data From ${note.title}?")
@@ -79,7 +87,9 @@ class FragmentNotification: Fragment(){
             val notes = db?.noteDao()?.getNotes()
             Log.d("MainActivity","dbResponse: $notes")
             withContext(Dispatchers.Main){
-                noteAdapter.setData( notes )
+                if (notes != null) {
+                    noteAdapter.setData( notes )
+                }
             }
         }
     }
