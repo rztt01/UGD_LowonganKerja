@@ -18,8 +18,9 @@ class FragmentProfile : Fragment(){
     var iduser = "id_user"
     var pref = "preference"
 
-    private val CHANNEL_ID_1 = "channerl_notification_01"
+    private val CHANNEL_ID_1 = "channel_notification_01"
     private val notificationId1 = 101
+    var sharedPreferences : SharedPreferences? = null
 
     val db by lazy {activity?.let { UserDB(it) }}
     private var _binding: FragmentProfileBinding? = null
@@ -35,7 +36,6 @@ class FragmentProfile : Fragment(){
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        var sharedPreferences : SharedPreferences? = null
 //        createNotificationChannel()
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = activity?.getSharedPreferences(pref, Context.MODE_PRIVATE)
@@ -49,12 +49,10 @@ class FragmentProfile : Fragment(){
         CoroutineScope(Dispatchers.IO).launch {
             val user = db?.userDao()?.getUser(id)?.get(0)
             username.setText(user?.username)
-            email.setText(user?.email)
+            //email.setText(user?.email)
             date.setText(user?.tanggalLahir)
             phone.setText(user?.noTelp)
         }
-
-        binding
 
 
 
