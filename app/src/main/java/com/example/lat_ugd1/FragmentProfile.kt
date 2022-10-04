@@ -1,6 +1,7 @@
 package com.example.lat_ugd1
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FragmentProfile : Fragment(){
-
+    val db by lazy {activity?.let { UserDB(it) }}
     var iduser = "id_user"
     var pref = "preference"
 
@@ -22,7 +23,6 @@ class FragmentProfile : Fragment(){
     private val notificationId1 = 101
     var sharedPreferences : SharedPreferences? = null
 
-    val db by lazy {activity?.let { UserDB(it) }}
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
@@ -39,28 +39,28 @@ class FragmentProfile : Fragment(){
 //        createNotificationChannel()
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = activity?.getSharedPreferences(pref, Context.MODE_PRIVATE)
-        val id = sharedPreferences!!.getInt(iduser, 0)
+        val id = sharedPreferences!!.getString(iduser,"")!!.toInt()
 
-           var username = binding.tvUsername
-            var email = binding.tvEmail
-            var date = binding.tvDate
-            var phone = binding.tvPhone
+        var username = binding.tvUsername
+        var email = binding.tvEmail
+        var date = binding.tvDate
+        var phone = binding.tvPhone
 
         CoroutineScope(Dispatchers.IO).launch {
             val user = db?.userDao()?.getUser(id)?.get(0)
             username.setText(user?.username)
-            //email.setText(user?.email)
+            email.setText(user?.email)
             date.setText(user?.tanggalLahir)
             phone.setText(user?.noTelp)
         }
 
-
-
+        binding.buttonEdit.setOnClickListener{
+            val move = Intent(activity, EditProfilActivity::class.java)
+            startActivity(move)
+            activity?.finish()
+        }
 
     }
-
-
-
 
 
     fun editProfil(value: Boolean){

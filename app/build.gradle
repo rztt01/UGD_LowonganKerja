@@ -35,8 +35,12 @@ android {
     }
     buildToolsVersion '33.0.0'
 
+    viewBinding{
+        enabled = true
+    }
+
     buildFeatures{
-        viewBinding=true
+        viewBinding true
     }
 }
 

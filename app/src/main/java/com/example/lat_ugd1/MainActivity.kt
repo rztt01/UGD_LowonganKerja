@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                     for (i in users) {
                         if (username == i.username ) {
                             val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-                            editor.putInt(iduser, i.id)
+                            editor.putString(iduser, i.id.toString())
                             editor.apply()
                         }
                     }

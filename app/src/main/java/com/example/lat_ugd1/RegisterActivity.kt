@@ -27,13 +27,13 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     val db by lazy { UserDB(this) }
-    private var userId: Int = 0
     private val CHANNEL_ID_1 = "channerl_notification_01"
     private val notificationId1 = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        supportActionBar?.hide()
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)

@@ -17,6 +17,7 @@ class MenuActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_menu)
         val fragment1 = FragmentHome()
         val fragment2 = FragmentProfile()

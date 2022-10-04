@@ -5,6 +5,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3d4248"
     tools:context=".MainActivity">
 
     <ImageView
@@ -36,13 +37,15 @@
             android:hint="Username"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_user_24"
+            android:textColorHint="#666666"
             android:layout_marginBottom="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:background="#ffffff"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,6 +56,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="Password"
             app:errorEnabled="true"
+            android:textColorHint="#666666"
             app:startIconDrawable="@drawable/ic_lock_24">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -60,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                />
+                android:background="#ffffff"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
