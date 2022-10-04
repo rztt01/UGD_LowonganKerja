@@ -59,6 +59,11 @@ class FragmentProfile : Fragment(){
             startActivity(move)
             activity?.finish()
         }
+        binding.logout.setOnClickListener{
+            val move = Intent(activity, MainActivity::class.java)
+            startActivity(move)
+            activity?.finish()
+        }
 
     }
 
