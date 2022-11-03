@@ -64,6 +64,11 @@ class FragmentProfile : Fragment(){
             startActivity(move)
             activity?.finish()
         }
+        binding.buttonCamera.setOnClickListener{
+            val move = Intent(activity, MainActivity::class.java)
+            startActivity(move)
+            activity?.finish()
+        }
 
     }
 
