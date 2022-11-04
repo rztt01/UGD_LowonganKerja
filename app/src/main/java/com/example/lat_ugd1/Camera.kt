@@ -16,7 +16,7 @@ class Camera : AppCompatActivity() {
     private var mCameraView: CameraView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_camera)
         try{
             mCamera = Camera.open()
         }catch (e:Exception){
