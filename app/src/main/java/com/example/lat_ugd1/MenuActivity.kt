@@ -20,8 +20,9 @@ class MenuActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(R.layout.activity_menu)
         val fragment1 = FragmentHome()
-        val fragment2 = FragmentProfile()
-        val fragment3 = FragmentNotification()
+        val fragment2 = FragmentLocation()
+        val fragment3 = FragmentProfile()
+        val fragment4 = FragmentNotification()
 
 
         setCurrentFragment(fragment1)
@@ -32,8 +33,10 @@ class MenuActivity : AppCompatActivity() {
             } else if (it.itemId == R.id.page_2) {
 //                getUser()
                 setCurrentFragment(fragment2)
-            } else {
+            } else if (it.itemId == R.id.page_3){
                 setCurrentFragment(fragment3)
+            } else if (it.itemId == R.id.page_3){
+                setCurrentFragment(fragment4)
             }
             true
         }

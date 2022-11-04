@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     // Atribute yang akan kita pakai
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setText()
         var iduser = "id_user"
         var pref = "preference"
+        val moveMainMenu = Intent(this,MenuActivity::class.java)
 
         supportActionBar?.hide()
 
@@ -75,20 +77,21 @@ class MainActivity : AppCompatActivity() {
                 if (!username.isEmpty() && !password.isEmpty()) {
                     val users = db.userDao().getUsers()
                     for (i in users) {
-                        if (username == i.username ) {
+                        if (username == i.username && password == i.password) {
                             val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
                             editor.putString(iduser, i.id.toString())
                             editor.apply()
+                            checkLogin = true
                         }
+                    }
+                }
+                withContext(Dispatchers.Main) {
+                    if (checkLogin) {
+                        startActivity(moveMainMenu)
                     }
                 }
             }
 
-            if(userData != null){
-                if (username == userData.getString("username") && password == userData.getString("password")) {
-                    checkLogin = true
-                }
-            }
 
             if (checkLogin != true) {
                 return@OnClickListener

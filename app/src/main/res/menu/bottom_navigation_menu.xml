@@ -9,10 +9,15 @@
     <item
         android:id="@+id/page_2"
         android:enabled="true"
+        android:icon="@drawable/ic_baseline_location_city_24"
+        android:title="Location"/>
+    <item
+        android:id="@+id/page_3"
+        android:enabled="true"
         android:icon="@drawable/ic_profil_24"
         android:title="Profile"/>
     <item
-        android:id="@+id/page_3"
+        android:id="@+id/page_4"
         android:enabled="true"
         android:icon="@drawable/ic_notification_24"
         android:title="Notification"/>
