@@ -30,7 +30,7 @@ class Camera : AppCompatActivity() {
         @SuppressLint("MissingINdlatedId", "LocalSuppress") val imageClose =
             findViewById<View>(R.id.imgClose) as ImageButton
         imageClose.setOnClickListener{
-            val close = Intent(this@Camera, FragmentProfile::class.java)
+            val close = Intent(this@Camera, MenuActivity::class.java)
             startActivity(close)
         }
     }
