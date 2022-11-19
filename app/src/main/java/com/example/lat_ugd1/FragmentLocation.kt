@@ -29,6 +29,12 @@ class FragmentLocation : Fragment() {
             activity?.finish()
         }
 
+        binding.interview.setOnClickListener{
+            val move = Intent(activity, InterviewActivity::class.java)
+            startActivity(move)
+            activity?.finish()
+        }
+
     }
 
 

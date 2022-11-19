@@ -11,12 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25dp"
-        android:text="Your Interview Location"
+        android:text="Your Interview Information"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:textStyle="bold"
-        android:textColor="@color/brown"
-        tools:ignore="MissingConstraints" />
+        android:textColor="@color/brown"/>
 
     <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:card_view="http://schemas.android.com/tools"
@@ -26,7 +25,7 @@
         app:cardElevation="6dp"
         app:cardUseCompatPadding="true"
         android:layout_marginTop="80dp"
-        android:layout_marginStart="90dp"
+        android:layout_marginStart="100dp"
         card_view:cardCornerRadius="5dp">
 
         <LinearLayout
@@ -39,7 +38,7 @@
                 android:id="@+id/maps"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="65dp"
+                android:layout_marginStart="50dp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/maps" />
@@ -50,7 +49,45 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="First Interview Location"
+                android:text="Interview Location"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true"
+        android:layout_marginTop="240dp"
+        android:layout_marginStart="100dp"
+        card_view:cardCornerRadius="5dp">
+
+        <LinearLayout
+            android:layout_width="171dp"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:background="#ede9e2">
+
+            <ImageView
+                android:id="@+id/interview"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="40dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/interview" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="30dp"
+                android:text="Data Interview"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 

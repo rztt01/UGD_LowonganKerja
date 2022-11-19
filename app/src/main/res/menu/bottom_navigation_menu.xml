@@ -10,7 +10,7 @@
         android:id="@+id/page_2"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_location_city_24"
-        android:title="Location"/>
+        android:title="Interview"/>
     <item
         android:id="@+id/page_3"
         android:enabled="true"
