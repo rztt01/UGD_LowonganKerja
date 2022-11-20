@@ -4,17 +4,29 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.lat_ugd1.api.UserApi
+import com.example.lat_ugd1.models.User
 import com.example.lat_ugd1.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 
 class MainActivity : AppCompatActivity() {
     // Atribute yang akan kita pakai
@@ -22,7 +34,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var inputPassword: TextInputEditText
     private lateinit var mainLayout: ConstraintLayout
     var sharedPreferences : SharedPreferences? = null
-    val db by lazy { UserDB(this) }
+
+    private  var queue: RequestQueue? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         var iduser = "id_user"
         var pref = "preference"
         val moveMainMenu = Intent(this,MenuActivity::class.java)
+
+        queue= Volley.newRequestQueue(this)
 
         supportActionBar?.hide()
 
@@ -51,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             val userData = intent.extras
             val username: String = inputUserName.getText().toString()
             val password: String = inputPassword.getText().toString()
+            val dataUser = Bundle()
 
             // Pengecekan apakah inputan kosong
             if (username.isEmpty()) {
@@ -65,7 +81,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (userData != null) {
-                if (username != userData.getString("username")) {
+                inputUserName.setText(userData.getString("name"))
+                inputPassword.setText(userData.getString("pass"))
+                if (username != userData.getString("name")) {
                     inputUserName.setError("Username incorrect")
                     checkLogin = false
                 } else if (password != userData.getString("password")) {
@@ -73,31 +91,63 @@ class MainActivity : AppCompatActivity() {
                     checkLogin = false
                 }
             }
-            CoroutineScope(Dispatchers.IO).launch {
-                if (!username.isEmpty() && !password.isEmpty()) {
-                    val users = db.userDao().getUsers()
-                    for (i in users) {
-                        if (username == i.username && password == i.password) {
-                            val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-                            editor.putString(iduser, i.id.toString())
-                            editor.apply()
-                            checkLogin = true
+
+            if (!username.isEmpty() && !password.isEmpty()){
+                val stringRequest: StringRequest = object : StringRequest(Method.GET, UserApi.GET_ALL_URL,
+                    Response.Listener { response ->
+                        val gson = Gson()
+                        val userList: Array<User> = gson.fromJson(response,Array<User>::class.java)
+                        if(userList.isEmpty()){
+                            Toast.makeText(this@MainActivity, "Tidak ada user terdaftar", Toast.LENGTH_SHORT).show()
+                        }else{
+                            for (user in userList){
+                                if(username == user.username){
+                                    if(password == user.password){
+                                        checkLogin = true
+
+                                    }else{
+                                        Toast.makeText(this@MainActivity, "Password salah", Toast.LENGTH_SHORT).show()
+                                    }
+                                }else{
+                                    Toast.makeText(this@MainActivity, "Username salah", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    },Response.ErrorListener { error ->
+                        try {
+                            val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                            val errors = JSONObject(responseBody)
+                            Toast.makeText(
+                                this@MainActivity,
+                                errors.getString("Error: message"),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }catch (e: java.lang.Exception){
+                            Log.d("Error di mana", e.message.toString())
+                            Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
                         }
                     }
-                }
-                withContext(Dispatchers.Main) {
-                    if (checkLogin) {
-                        startActivity(moveMainMenu)
+                ){
+                    @Throws(AuthFailureError::class)
+                    override fun getHeaders(): Map<String, String> {
+                        val headers = HashMap<String, String>()
+                        headers["Accept"] = "aplication/json"
+                        return headers
+                    }
+
+                    override fun getBodyContentType(): String {
+                        return "application/json"
                     }
                 }
+                queue!!.add(stringRequest)
             }
-
 
             if (checkLogin != true) {
                 return@OnClickListener
             }else{
                 Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
                 val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
+                moveHome.putExtras(dataUser)
                 startActivity(moveHome)
             }
 

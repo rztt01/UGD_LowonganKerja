@@ -21,6 +21,7 @@ import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.lat_ugd1.api.UserApi
 import com.example.lat_ugd1.databinding.ActivityRegisterBinding
 import com.example.lat_ugd1.models.User
@@ -50,6 +51,8 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(view)
 
         createNotificationChannel()
+
+        queue= Volley.newRequestQueue(this)
 
         val inputUserNameRegister = binding.inputLayoutUsername2
         val inputPasswordRegister= binding.inputLayoutPassword2
@@ -117,7 +120,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (checkRegister == true) {
 
-                val StringRequest:StringRequest = object : StringRequest(Method.POST,UserApi.ADD_URL,
+                val stringRequest:StringRequest = object : StringRequest(Method.POST,UserApi.ADD_URL,
                     Response.Listener { response ->
                         val gson = Gson()
                         val user = gson.fromJson(response, User::class.java)
@@ -167,7 +170,7 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
 
-                queue!!.add(StringRequest)
+                queue!!.add(stringRequest)
 
                 val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
 
