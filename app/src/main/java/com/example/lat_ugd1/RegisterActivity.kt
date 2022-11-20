@@ -123,7 +123,7 @@ class RegisterActivity : AppCompatActivity() {
                 val stringRequest:StringRequest = object : StringRequest(Method.POST,UserApi.ADD_URL,
                     Response.Listener { response ->
                         val gson = Gson()
-                        val user = gson.fromJson(response, User::class.java)
+                        var user = gson.fromJson(response, User::class.java)
 
                         if (user != null){
                             Toast.makeText(this@RegisterActivity, "Data User Berhasi Ditambah", Toast.LENGTH_LONG).show()

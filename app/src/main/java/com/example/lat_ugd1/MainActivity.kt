@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 val stringRequest: StringRequest = object : StringRequest(Method.GET, UserApi.GET_ALL_URL,
                     Response.Listener { response ->
                         val gson = Gson()
-                        val userList: Array<User> = gson.fromJson(response,Array<User>::class.java)
+                        var userList: Array<User> = gson.fromJson(response,Array<User>::class.java)
                         if(userList.isEmpty()){
                             Toast.makeText(this@MainActivity, "Tidak ada user terdaftar", Toast.LENGTH_SHORT).show()
                         }else{
@@ -104,14 +104,21 @@ class MainActivity : AppCompatActivity() {
                                 if(username == user.username){
                                     if(password == user.password){
                                         checkLogin = true
-
+                                        break
                                     }else{
                                         Toast.makeText(this@MainActivity, "Password salah", Toast.LENGTH_SHORT).show()
                                     }
-                                }else{
-                                    Toast.makeText(this@MainActivity, "Username salah", Toast.LENGTH_SHORT).show()
                                 }
                             }
+                            if(!checkLogin){
+                                Toast.makeText(this@MainActivity, "Username salah", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
+                                val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
+                                
+                                startActivity(moveHome)
+                            }
+
                         }
                     },Response.ErrorListener { error ->
                         try {
