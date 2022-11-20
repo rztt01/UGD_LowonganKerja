@@ -8,27 +8,38 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.example.lat_ugd1.api.UserApi
 import com.example.lat_ugd1.databinding.ActivityRegisterBinding
-import com.example.lat_ugd1.room.User
+import com.example.lat_ugd1.models.User
 import com.example.lat_ugd1.room.UserDB
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    val db by lazy { UserDB(this) }
     private val CHANNEL_ID_1 = "channerl_notification_01"
     private val notificationId1 = 101
+
+    private  var queue: RequestQueue? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +70,8 @@ class RegisterActivity : AppCompatActivity() {
             val email: String = inputEmailRegister.getEditText()?.getText().toString()
             val tanggallahir: String =  inputTanggalLahir.getEditText()?.getText().toString()
             val notelp: String = inputNoTelp.getEditText()?.getText().toString()
+
+            val user = User(username, password, email, tanggallahir, notelp )
 
             // Pengecekan apakah inputan kosong
             if (username.isEmpty()) {
@@ -103,14 +116,61 @@ class RegisterActivity : AppCompatActivity() {
             if (!checkRegister) return@OnClickListener
 
             if (checkRegister == true) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    db.userDao().addUser(
-                        User(0, username, password, email, tanggallahir, notelp)
-                    )
-                    sendNotification()
-                    finish()
+
+                val StringRequest:StringRequest = object : StringRequest(Method.POST,UserApi.ADD_URL,
+                    Response.Listener { response ->
+                        val gson = Gson()
+                        val user = gson.fromJson(response, User::class.java)
+
+                        if (user != null){
+                            Toast.makeText(this@RegisterActivity, "Data User Berhasi Ditambah", Toast.LENGTH_LONG).show()
+                            sendNotification()
+                            dataUser.putString("name", username)
+                            dataUser.putString("pass", password)
+
+                        }
+
+                        val returnIntent = Intent()
+                        setResult(RESULT_OK, returnIntent)
+                        finish()
+                    }, Response.ErrorListener { error ->
+                        try {
+                            val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                            val errors = JSONObject(responseBody)
+                            Toast.makeText(
+                                this@RegisterActivity,
+                                errors.getString("Error: message"),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }catch (e: java.lang.Exception){
+                            Log.d("Error di mana", e.message.toString())
+                            Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                ){
+                    @Throws(AuthFailureError::class)
+                    override fun getHeaders(): Map<String, String> {
+                        val headers = HashMap<String, String>()
+                        headers["Accept"] = "aplication/json"
+                        return headers
+                    }
+
+                    @Throws(AuthFailureError::class)
+                    override fun getBody(): ByteArray{
+                        val gson = Gson()
+                        val requestBody = gson.toJson(user)
+                        return requestBody.toByteArray(StandardCharsets.UTF_8)
+                    }
+
+                    override fun getBodyContentType(): String {
+                        return "application/json"
+                    }
                 }
+
+                queue!!.add(StringRequest)
+
                 val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
+
                 moveHome.putExtras(dataUser)
                 startActivity(moveHome)
             }
