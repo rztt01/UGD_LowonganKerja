@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                             }else{
                                 Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
                                 val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
-                                
+
                                 startActivity(moveHome)
                             }
 
@@ -147,15 +147,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 queue!!.add(stringRequest)
-            }
-
-            if (checkLogin != true) {
-                return@OnClickListener
-            }else{
-                Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
-                val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
-                moveHome.putExtras(dataUser)
-                startActivity(moveHome)
             }
 
         })
