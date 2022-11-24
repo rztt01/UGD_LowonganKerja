@@ -21,6 +21,7 @@ import com.example.lat_ugd1.api.InterviewApi
 import com.example.lat_ugd1.models.Interview
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
@@ -80,9 +81,9 @@ class InterviewActivity : AppCompatActivity() {
             srInterview!!.isRefreshing = false
 
             if (!interview.isEmpty())
-                Toast.makeText(this@InterviewActivity, "Data Berhasil Diambil", Toast.LENGTH_SHORT).show()
+                FancyToast.makeText(this@InterviewActivity, "Data Berhasil Diambil", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS,false).show()
             else
-                Toast.makeText(this@InterviewActivity, "Data Kosong", Toast.LENGTH_SHORT).show()
+                FancyToast.makeText(this@InterviewActivity, "Data Kosong", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
 
 
         }, Response.ErrorListener { error ->
@@ -90,13 +91,14 @@ class InterviewActivity : AppCompatActivity() {
             try {
                 val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                 val error = JSONObject(responseBody)
-                Toast.makeText(
+                FancyToast.makeText(
                     this@InterviewActivity,
                     error.getString("message"),
-                    Toast.LENGTH_SHORT
+                    FancyToast.LENGTH_SHORT,
+                    FancyToast.SUCCESS,false
                 ).show()
             } catch (e: Exception){
-                Toast.makeText(this@InterviewActivity, e.message, Toast.LENGTH_SHORT).show()
+                FancyToast.makeText(this@InterviewActivity, e.message, FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
             }
         }) {
             @Throws(AuthFailureError::class)
@@ -118,20 +120,21 @@ class InterviewActivity : AppCompatActivity() {
                 val gson = Gson()
                 var interview = gson.fromJson(response, Interview::class.java)
                 if (interview!=null)
-                    Toast.makeText(this@InterviewActivity, "Data Berhasil Dihapus", Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@InterviewActivity, "Data Berhasil Dihapus", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
                 allInterview()
             }, Response.ErrorListener { error ->
                 setLoading(false)
                 try {
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val error = JSONObject(responseBody)
-                    Toast.makeText(
+                    FancyToast.makeText(
                         this@InterviewActivity,
                         error.getString("message"),
-                        Toast.LENGTH_SHORT
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.SUCCESS, false
                     ).show()
                 } catch (e: java.lang.Exception){
-                    Toast.makeText(this@InterviewActivity, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@InterviewActivity, e.message, FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
                 }
             }) {
             @Throws(AuthFailureError::class)

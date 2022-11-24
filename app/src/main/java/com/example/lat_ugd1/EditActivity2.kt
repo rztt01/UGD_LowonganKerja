@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.lat_ugd1.room.Constant
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.activity_edit2.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +33,7 @@ class EditActivity2 : AppCompatActivity() {
         setupView()
         setupListener()
         createNotificationChannel()
-        Toast.makeText(this,noteId.toString(), Toast.LENGTH_SHORT).show()
+        FancyToast.makeText(this,noteId.toString(), FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
     }
     fun setupView(){
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

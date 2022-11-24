@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.activity_location.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -77,10 +78,12 @@ class LocationActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         } catch (ignored: IOException) {
-            Toast.makeText(
+            FancyToast.makeText(
                 this@LocationActivity,
                 "Oops, ada yang tidak beres. Coba ulangi beberapa saat lagi.",
-                Toast.LENGTH_SHORT
+                FancyToast.LENGTH_SHORT,
+                FancyToast.ERROR,
+                false
             ).show()
         }
     }
@@ -114,10 +117,11 @@ class LocationActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         } catch (ignored: IOException) {
-            Toast.makeText(
+            FancyToast.makeText(
                 this@LocationActivity,
                 "Oops, ada yang tidak beres. Coba ulangi beberapa saat lagi.",
-                Toast.LENGTH_SHORT
+                FancyToast.LENGTH_SHORT,
+                FancyToast.ERROR, false
             ).show()
         }
     }

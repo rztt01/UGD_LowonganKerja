@@ -75,4 +75,6 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
     // Gson
     implementation 'com.google.code.gson:gson:2.8.8'
+    //toast
+    implementation 'io.github.shashank02051997:FancyToast:2.0.2'
 }

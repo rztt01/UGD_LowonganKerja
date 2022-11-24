@@ -2,6 +2,7 @@ package com.example.lat_ugd1
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Spannable.Factory
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
@@ -14,6 +15,7 @@ import com.android.volley.toolbox.Volley
 import com.example.lat_ugd1.api.InterviewApi
 import com.example.lat_ugd1.models.Interview
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
@@ -85,7 +87,7 @@ class AddEditInterviewActivity : AppCompatActivity() {
                 etDomisili!!.setText(interview.domisili)
                 setExposedDropDownMenu()
 
-                Toast.makeText(this@AddEditInterviewActivity, "Data berhasil diambil!", Toast.LENGTH_SHORT).show()
+                FancyToast.makeText(this@AddEditInterviewActivity, "Data berhasil diambil!", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
                 setLoading(false)
             }, Response.ErrorListener { error ->
                 setLoading(false)
@@ -93,13 +95,14 @@ class AddEditInterviewActivity : AppCompatActivity() {
                 try {
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
+                    FancyToast.makeText(
                         this@AddEditInterviewActivity,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.SUCCESS,false
                     ).show()
                 } catch (e: Exception) {
-                    Toast.makeText(this@AddEditInterviewActivity, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@AddEditInterviewActivity, e.message, FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
                 }
             }) {
             @Throws(AuthFailureError::class)
@@ -128,10 +131,11 @@ class AddEditInterviewActivity : AppCompatActivity() {
                 val interview = gson.fromJson(response, Interview::class.java)
 
                 if (interview != null)
-                    Toast.makeText(
+                    FancyToast.makeText(
                         this@AddEditInterviewActivity,
                         "Data Berhasil Ditambahkan",
-                        Toast.LENGTH_SHORT
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.SUCCESS,false
                     ).show()
 
                 val returnIntent = Intent()
@@ -144,12 +148,13 @@ class AddEditInterviewActivity : AppCompatActivity() {
                 try {
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText( this@AddEditInterviewActivity,
+                    FancyToast.makeText( this@AddEditInterviewActivity,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.SUCCESS,false
                     ).show()
                 } catch (e: Exception) {
-                    Toast.makeText(this@AddEditInterviewActivity, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@AddEditInterviewActivity, e.message, FancyToast.LENGTH_SHORT,FancyToast.ERROR, false).show()
                 }
             }) {
                 @Throws(AuthFailureError::class)
@@ -192,10 +197,11 @@ class AddEditInterviewActivity : AppCompatActivity() {
                 var interview = gson.fromJson(response, Interview::class.java)
 
                 if (interview != null)
-                    Toast.makeText(
+                    FancyToast.makeText(
                         this@AddEditInterviewActivity,
                         "Data berhasil diupdate",
-                        Toast.LENGTH_SHORT
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.SUCCESS,false
                     ).show()
 
                 val returnIntent = Intent()
@@ -208,13 +214,14 @@ class AddEditInterviewActivity : AppCompatActivity() {
                 try {
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
+                    FancyToast.makeText(
                         this@AddEditInterviewActivity,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.SUCCESS, false
                     ).show()
                 } catch (e: Exception) {
-                    Toast.makeText(this@AddEditInterviewActivity, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@AddEditInterviewActivity, e.message, FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
                 }
             }) {
             @Throws(AuthFailureError::class)

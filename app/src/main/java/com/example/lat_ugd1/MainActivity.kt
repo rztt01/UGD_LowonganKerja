@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.volley.AuthFailureError
@@ -21,6 +20,7 @@ import com.example.lat_ugd1.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                         val gson = Gson()
                         var userList: Array<User> = gson.fromJson(response,Array<User>::class.java)
                         if(userList.isEmpty()){
-                            Toast.makeText(this@MainActivity, "Tidak ada user terdaftar", Toast.LENGTH_SHORT).show()
+                            FancyToast.makeText(this@MainActivity, "Tidak ada user terdaftar", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
                         }else{
                             for (user in userList){
                                 if(username == user.username){
@@ -106,12 +106,12 @@ class MainActivity : AppCompatActivity() {
                                         checkLogin = true
                                         break
                                     }else{
-                                        Toast.makeText(this@MainActivity, "Password salah", Toast.LENGTH_SHORT).show()
+                                        FancyToast.makeText(this@MainActivity, "Password salah", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
                                     }
                                 }
                             }
                             if(!checkLogin){
-                                Toast.makeText(this@MainActivity, "Username salah", Toast.LENGTH_SHORT).show()
+                                FancyToast.makeText(this@MainActivity, "Username salah", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
                             }else{
                                 Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
                                 val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
@@ -124,14 +124,16 @@ class MainActivity : AppCompatActivity() {
                         try {
                             val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                             val errors = JSONObject(responseBody)
-                            Toast.makeText(
+                            FancyToast.makeText(
                                 this@MainActivity,
                                 errors.getString("Error: message"),
-                                Toast.LENGTH_SHORT
+                                FancyToast.LENGTH_SHORT,
+                                FancyToast.ERROR,
+                                false
                             ).show()
                         }catch (e: java.lang.Exception){
                             Log.d("Error di mana", e.message.toString())
-                            Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
+                            FancyToast.makeText(this@MainActivity, e.message, FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show()
                         }
                     }
                 ){

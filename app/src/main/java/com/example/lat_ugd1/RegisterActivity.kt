@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -25,8 +24,8 @@ import com.android.volley.toolbox.Volley
 import com.example.lat_ugd1.api.UserApi
 import com.example.lat_ugd1.databinding.ActivityRegisterBinding
 import com.example.lat_ugd1.models.User
-import com.example.lat_ugd1.room.UserDB
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -118,7 +117,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (!checkRegister) return@OnClickListener
 
-            if (checkRegister == true) {
+            if (checkRegister) {
 
                 val stringRequest:StringRequest = object : StringRequest(Method.POST,UserApi.ADD_URL,
                     Response.Listener { response ->
@@ -126,8 +125,8 @@ class RegisterActivity : AppCompatActivity() {
                         var user = gson.fromJson(response, User::class.java)
 
                         if (user != null){
-                            Toast.makeText(this@RegisterActivity, "Data User Berhasi Ditambah", Toast.LENGTH_LONG).show()
-                            sendNotification()
+                            FancyToast.makeText(this@RegisterActivity, "Data User Berhasi Ditambah", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show()
+//                            sendNotification()
                             dataUser.putString("name", username)
                             dataUser.putString("pass", password)
 
@@ -140,14 +139,15 @@ class RegisterActivity : AppCompatActivity() {
                         try {
                             val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                             val errors = JSONObject(responseBody)
-                            Toast.makeText(
+                            FancyToast.makeText(
                                 this@RegisterActivity,
                                 errors.getString("Error: message"),
-                                Toast.LENGTH_SHORT
+                                FancyToast.LENGTH_SHORT,
+                                FancyToast.ERROR,false
                             ).show()
                         }catch (e: java.lang.Exception){
                             Log.d("Error di mana", e.message.toString())
-                            Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_LONG).show()
+                            FancyToast.makeText(this@RegisterActivity, e.message, FancyToast.LENGTH_LONG, FancyToast.ERROR,false).show()
                         }
                     }
                 ){
