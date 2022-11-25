@@ -41,6 +41,12 @@ class FragmentLocation : Fragment() {
             activity?.finish()
         }
 
+        binding.certificate.setOnClickListener{
+            val move = Intent(activity, ShowPerusahaanActivity::class.java)
+            startActivity(move)
+            activity?.finish()
+        }
+
     }
 
 

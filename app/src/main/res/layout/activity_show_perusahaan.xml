@@ -47,7 +47,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="15dp"
                         android:layout_marginStart="10dp"
-                        android:text="Sertificate Experience of Organization"
+                        android:text="Certificate Experience of Organization"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
                 </LinearLayout>
@@ -77,7 +77,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="15dp"
                         android:layout_marginStart="10dp"
-                        android:text="Sertificate Experience of Employee"
+                        android:text="Certificate Experience of Employee"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
                 </LinearLayout>
