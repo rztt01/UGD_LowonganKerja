@@ -23,6 +23,7 @@ import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
+import com.shashank.sony.fancytoastlib.FancyToast
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -48,10 +49,11 @@ class PDFActivity : AppCompatActivity() {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     if (id.isEmpty() && nama.isEmpty() && perusahaan.isEmpty() && role.isEmpty()) {
-                        Toast.makeText(
+                        FancyToast.makeText(
                             applicationContext,
                             "Data Interview Tidak Boleh kosong",
-                            Toast.LENGTH_SHORT
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.ERROR,false
                         ).show()
                     } else {
                         createPdf(id, nama, perusahaan, role)
@@ -129,6 +131,6 @@ class PDFActivity : AppCompatActivity() {
         document.add(table)
         document.add(qrCodeImage)
         document.close()
-        Toast.makeText(applicationContext, "PDF Created", Toast.LENGTH_SHORT).show()
+        FancyToast.makeText(applicationContext, "PDF Created", FancyToast.LENGTH_SHORT,FancyToast.SUCCESS,false).show()
     }
 }
