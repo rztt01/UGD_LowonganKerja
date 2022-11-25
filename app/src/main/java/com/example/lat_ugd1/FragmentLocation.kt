@@ -35,6 +35,12 @@ class FragmentLocation : Fragment() {
             activity?.finish()
         }
 
+        binding.interviewPdf.setOnClickListener{
+            val move = Intent(activity, PDFActivity::class.java)
+            startActivity(move)
+            activity?.finish()
+        }
+
     }
 
 
