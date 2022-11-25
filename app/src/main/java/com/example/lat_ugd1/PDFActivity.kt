@@ -78,7 +78,7 @@ class PDFActivity : AppCompatActivity() {
         val document = Document(pdfDocument)
         pdfDocument.defaultPageSize = com.itextpdf.kernel.geom.PageSize.A4
         document.setMargins(5f, 5f, 5f, 5f)
-        @SuppressLint("UseCompatLoadingForDrawables") val d = getDrawable(R.drawable.img)
+        @SuppressLint("UseCompatLoadingForDrawables") val d = getDrawable(R.drawable.img_1)
 
         val bitmap = (d as BitmapDrawable)!!.bitmap
         val stream = ByteArrayOutputStream()
@@ -86,11 +86,11 @@ class PDFActivity : AppCompatActivity() {
         val bitmapdata = stream.toByteArray()
         val imageData = ImageDataFactory.create(bitmapdata)
         val image = Image(imageData)
-        val namapengguna = Paragraph("Identitas Pengguna").setBold().setFontSize(24f).setTextAlignment(TextAlignment.CENTER)
+        val namapengguna = Paragraph("Data Interview").setBold().setFontSize(24f).setTextAlignment(TextAlignment.CENTER)
         val group = Paragraph (
             """
                 Berikut adalah 
-                Nama Pengguna UAJY 2022/2023
+                Data Calon Interview Perusahaan 2022
             """.trimIndent()).setTextAlignment(TextAlignment.CENTER).setFontSize(12f)
 
         val width = floatArrayOf(100f, 100f)
