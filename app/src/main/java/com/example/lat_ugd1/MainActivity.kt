@@ -83,13 +83,7 @@ class MainActivity : AppCompatActivity() {
             if (userData != null) {
                 inputUserName.setText(userData.getString("name"))
                 inputPassword.setText(userData.getString("pass"))
-                if (username != userData.getString("name")) {
-                    inputUserName.setError("Username incorrect")
-                    checkLogin = false
-                } else if (password != userData.getString("password")) {
-                    inputPassword.setError("Password incorrect")
-                    checkLogin = false
-                }
+
             }
 
             if (!username.isEmpty() && !password.isEmpty()){
@@ -113,7 +107,8 @@ class MainActivity : AppCompatActivity() {
                             if(!checkLogin){
                                 FancyToast.makeText(this@MainActivity, "Username salah", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
                             }else{
-                                Snackbar.make(mainLayout, "Login Successful!", Snackbar.LENGTH_LONG).show()
+                                FancyToast.makeText(this@MainActivity, "Login Successful!", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
+
                                 val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
 
                                 startActivity(moveHome)
