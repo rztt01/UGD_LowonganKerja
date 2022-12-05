@@ -2,7 +2,7 @@ package com.example.lat_ugd1.api
 
 class UserApi {
     companion object {
-        val BASE_URL = "http://192.168.0.104:8081/ci4-tubesapiserver/public/"
+        val BASE_URL = "http://tubespbpjob.herokuapp.com/api/"
 
         val GET_ALL_URL = BASE_URL + "user/"
         val GET_BY_ID_URL = BASE_URL + "user/"
