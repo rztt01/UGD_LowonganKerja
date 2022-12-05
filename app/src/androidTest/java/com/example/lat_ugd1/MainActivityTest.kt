@@ -63,7 +63,7 @@ class MainActivityTest {
                 isDisplayed()
             )
         )
-        textInputEditText.perform(replaceText("p"), closeSoftKeyboard())
+        textInputEditText.perform(replaceText("salah"), closeSoftKeyboard())
 
         val materialButton2 = onView(
             allOf(
@@ -97,7 +97,7 @@ class MainActivityTest {
                 isDisplayed()
             )
         )
-        textInputEditText2.perform(replaceText("p"), closeSoftKeyboard())
+        textInputEditText2.perform(replaceText("salah"), closeSoftKeyboard())
 
         val materialButton3 = onView(
             allOf(
@@ -117,7 +117,76 @@ class MainActivityTest {
         )
         materialButton3.perform(click())
         onView(isRoot()).perform(waitFor(3000))
+
+        val textInputEditText3 = onView(
+            allOf(
+                withId(R.id.inputUsername),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.inputLayoutUsername),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        textInputEditText3.perform(replaceText("benar"), closeSoftKeyboard())
+
+        val materialButton4 = onView(
+            allOf(
+                withId(R.id.btnLogin), withText("Login"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout),
+                        childAtPosition(
+                            withId(R.id.mainLayout),
+                            2
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton4.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
+
+        val textInputEditText4 = onView(
+            allOf(
+                withId(R.id.inputPassword),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.inputLayoutPassword),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        textInputEditText4.perform(replaceText("benar"), closeSoftKeyboard())
+
+        val materialButton5 = onView(
+            allOf(
+                withId(R.id.btnLogin), withText("Login"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout),
+                        childAtPosition(
+                            withId(R.id.mainLayout),
+                            2
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton5.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
     }
+}
 
     private fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int
@@ -151,4 +220,3 @@ class MainActivityTest {
             }
         }
     }
-}
