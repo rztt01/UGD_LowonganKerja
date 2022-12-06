@@ -320,7 +320,7 @@ class RegisterActivityTest {
             allOf(
                 childAtPosition(
                     childAtPosition(
-                        withId(R.id.inputLayoutEmail),
+                        withId(R.id.inputLayoutNoTelp),
                         0
                     ),
                     0
