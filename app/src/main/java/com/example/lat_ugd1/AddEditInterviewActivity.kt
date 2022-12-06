@@ -99,7 +99,7 @@ class AddEditInterviewActivity : AppCompatActivity() {
                         this@AddEditInterviewActivity,
                         errors.getString("message"),
                         FancyToast.LENGTH_SHORT,
-                        FancyToast.SUCCESS,false
+                        FancyToast.ERROR,false
                     ).show()
                 } catch (e: Exception) {
                     FancyToast.makeText(this@AddEditInterviewActivity, e.message, FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
@@ -151,7 +151,7 @@ class AddEditInterviewActivity : AppCompatActivity() {
                     FancyToast.makeText( this@AddEditInterviewActivity,
                         errors.getString("message"),
                         FancyToast.LENGTH_SHORT,
-                        FancyToast.SUCCESS,false
+                        FancyToast.ERROR,false
                     ).show()
                 } catch (e: Exception) {
                     FancyToast.makeText(this@AddEditInterviewActivity, e.message, FancyToast.LENGTH_SHORT,FancyToast.ERROR, false).show()

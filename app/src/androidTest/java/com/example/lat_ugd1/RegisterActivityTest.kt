@@ -4,7 +4,8 @@ package com.example.lat_ugd1
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -46,6 +47,7 @@ class RegisterActivityTest {
             )
         )
         materialButton.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText = onView(
             allOf(
@@ -59,9 +61,7 @@ class RegisterActivityTest {
                 isDisplayed()
             )
         )
-        textInputEditText.perform(replaceText("p"), closeSoftKeyboard())
-
-        pressBack()
+        textInputEditText.perform(replaceText("test"), closeSoftKeyboard())
 
         val materialButton2 = onView(
             allOf(
@@ -80,6 +80,7 @@ class RegisterActivityTest {
             )
         )
         materialButton2.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText2 = onView(
             allOf(
@@ -93,9 +94,8 @@ class RegisterActivityTest {
                 isDisplayed()
             )
         )
-        textInputEditText2.perform(replaceText("p"), closeSoftKeyboard())
+        textInputEditText2.perform(replaceText("test"), closeSoftKeyboard())
 
-        pressBack()
 
         val materialButton3 = onView(
             allOf(
@@ -114,6 +114,7 @@ class RegisterActivityTest {
             )
         )
         materialButton3.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText3 = onView(
             allOf(
@@ -128,9 +129,7 @@ class RegisterActivityTest {
                 isDisplayed()
             )
         )
-        textInputEditText3.perform(replaceText("pp"), closeSoftKeyboard())
-
-        pressBack()
+        textInputEditText3.perform(replaceText("test1"), closeSoftKeyboard())
 
         val materialButton4 = onView(
             allOf(
@@ -149,6 +148,7 @@ class RegisterActivityTest {
             )
         )
         materialButton4.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText4 = onView(
             allOf(
@@ -162,9 +162,8 @@ class RegisterActivityTest {
                 isDisplayed()
             )
         )
-        textInputEditText4.perform(replaceText("p"), closeSoftKeyboard())
+        textInputEditText4.perform(replaceText("test"), closeSoftKeyboard())
 
-        pressBack()
 
         val materialButton5 = onView(
             allOf(
@@ -183,6 +182,7 @@ class RegisterActivityTest {
             )
         )
         materialButton5.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText5 = onView(
             allOf(
@@ -196,9 +196,7 @@ class RegisterActivityTest {
                 isDisplayed()
             )
         )
-        textInputEditText5.perform(replaceText("p"), closeSoftKeyboard())
-
-        pressBack()
+        textInputEditText5.perform(replaceText("test"), closeSoftKeyboard())
 
         val materialButton6 = onView(
             allOf(
@@ -217,6 +215,7 @@ class RegisterActivityTest {
             )
         )
         materialButton6.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText6 = onView(
             allOf(
@@ -230,9 +229,7 @@ class RegisterActivityTest {
                 isDisplayed()
             )
         )
-        textInputEditText6.perform(replaceText("p"), closeSoftKeyboard())
-
-        pressBack()
+        textInputEditText6.perform(replaceText("098"), closeSoftKeyboard())
 
         val materialButton7 = onView(
             allOf(
@@ -251,10 +248,10 @@ class RegisterActivityTest {
             )
         )
         materialButton7.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText7 = onView(
             allOf(
-                withId(R.id.inputConfirmPassword), withText("pp"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.inputLayoutConfirmPassword),
@@ -265,24 +262,7 @@ class RegisterActivityTest {
                 isDisplayed()
             )
         )
-        textInputEditText7.perform(replaceText("p"))
-
-        val textInputEditText8 = onView(
-            allOf(
-                withId(R.id.inputConfirmPassword), withText("p"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.inputLayoutConfirmPassword),
-                        0
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        textInputEditText8.perform(closeSoftKeyboard())
-
-        pressBack()
+        textInputEditText7.perform(replaceText("test"), closeSoftKeyboard())
 
         val materialButton8 = onView(
             allOf(
@@ -301,6 +281,74 @@ class RegisterActivityTest {
             )
         )
         materialButton8.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
+
+        val textInputEditText8 = onView(
+            allOf(
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.inputLayoutEmail),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        textInputEditText8.perform(replaceText("test@email.com"), closeSoftKeyboard())
+
+        val materialButton9 = onView(
+            allOf(
+                withId(R.id.btnRegister2), withText("Register"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout4),
+                        childAtPosition(
+                            withId(R.id.mainLayout2),
+                            2
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton9.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
+
+        val textInputEditText9 = onView(
+            allOf(
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.inputLayoutEmail),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        textInputEditText9.perform(replaceText("09998127"), closeSoftKeyboard())
+
+        val materialButton10 = onView(
+            allOf(
+                withId(R.id.btnRegister2), withText("Register"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout4),
+                        childAtPosition(
+                            withId(R.id.mainLayout2),
+                            2
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton10.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
+
     }
 
     private fun childAtPosition(
@@ -317,6 +365,22 @@ class RegisterActivityTest {
                 val parent = view.parent
                 return parent is ViewGroup && parentMatcher.matches(parent)
                         && view == parent.getChildAt(position)
+            }
+        }
+    }
+
+    fun waitFor(delay: Long): ViewAction? {
+        return object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return isRoot()
+            }
+
+            override fun getDescription(): String {
+                return "wait for " + delay + "milliseconds"
+            }
+
+            override fun perform(uiController: UiController, view: View) {
+                uiController.loopMainThreadForAtLeast(delay)
             }
         }
     }

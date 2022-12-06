@@ -186,7 +186,6 @@ class MainActivityTest {
         materialButton5.perform(click())
         onView(isRoot()).perform(waitFor(3000))
     }
-}
 
     private fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int
@@ -205,14 +204,15 @@ class MainActivityTest {
             }
         }
     }
-    fun waitFor(delay: Long): ViewAction?{
+
+    fun waitFor(delay: Long): ViewAction? {
         return object : ViewAction {
-            override fun getConstraints(): Matcher<View>{
+            override fun getConstraints(): Matcher<View> {
                 return isRoot()
             }
 
             override fun getDescription(): String {
-                return "wait for " + delay +"milliseconds"
+                return "wait for " + delay + "milliseconds"
             }
 
             override fun perform(uiController: UiController, view: View) {
@@ -220,3 +220,4 @@ class MainActivityTest {
             }
         }
     }
+}

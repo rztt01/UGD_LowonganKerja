@@ -76,40 +76,46 @@ class RegisterActivity : AppCompatActivity() {
             val user = User(username, password, email, tanggallahir, notelp )
 
             // Pengecekan apakah inputan kosong
-            if (username.isEmpty()) {
-                inputUserNameRegister.setError("Username must be filled with text")
-                checkRegister = false
-            }
+//            if (username.isEmpty()) {
+//                inputUserNameRegister.setError("Username must be filled with text")
+//                checkRegister = false
+//            }
 
             // Pengecekan apakah inputan kosong
-            if (password.isEmpty()) {
-                inputPasswordRegister.setError("Password must be filled with text")
-                checkRegister = false
-            // Pengecekan apakah input confirm password sama dengan password
-            } else if (!password.equals(confirm)) {
-                inputConfirmPasswordRegister.setError("Password would not be matched")
-                checkRegister = false
-            }
+//            if (password.isEmpty()) {
+//                inputPasswordRegister.setError("Password must be filled with text")
+//                checkRegister = false
+//            // Pengecekan apakah input confirm password sama dengan password
+//            } else if (!password.equals(confirm)) {
+//                inputConfirmPasswordRegister.setError("Password would not be matched")
+//                checkRegister = false
+//            }
 
             // Pengecekan apakah inputan kosong
-            if (email.isEmpty()) {
-                inputEmailRegister.setError("Email must be filled with text")
-                checkRegister = false
-            }
+//            if (email.isEmpty()) {
+//                inputEmailRegister.setError("Email must be filled with text")
+//                checkRegister = false
+//            }
+//
+//            // Pengecekan apakah inputan kosong
+//            if (tanggallahir.isEmpty()) {
+//                inputTanggalLahir.setError("Tanggal Lahir must be filled with text")
+//                checkRegister = false
+//            }
+//
+//            // Pengecekan apakah inputan kosong
+//            if (notelp.isEmpty()) {
+//                inputNoTelp.setError("Nomor Telpon must be filled with text")
+//                checkRegister = false
+//            }
 
-            // Pengecekan apakah inputan kosong
-            if (tanggallahir.isEmpty()) {
-                inputTanggalLahir.setError("Tanggal Lahir must be filled with text")
-                checkRegister = false
-            }
+//            if(username.isNotEmpty() && password.isNotEmpty() && confirm.isNotEmpty() && email.isNotEmpty() && tanggallahir.isNotEmpty() && notelp.isNotEmpty() && password == confirm) {
+//                dataUser.putString("username", username)
+//                dataUser.putString("password", password)
+//                checkRegister = true
+//            }
 
-            // Pengecekan apakah inputan kosong
-            if (notelp.isEmpty()) {
-                inputNoTelp.setError("Nomor Telpon must be filled with text")
-                checkRegister = false
-            }
-
-            if(username.isNotEmpty() && password.isNotEmpty() && confirm.isNotEmpty() && email.isNotEmpty() && tanggallahir.isNotEmpty() && notelp.isNotEmpty() && password == confirm) {
+            if(password == confirm) {
                 dataUser.putString("username", username)
                 dataUser.putString("password", password)
                 checkRegister = true
@@ -134,6 +140,8 @@ class RegisterActivity : AppCompatActivity() {
 
                         val returnIntent = Intent()
                         setResult(RESULT_OK, returnIntent)
+                        val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
+                        moveHome.putExtras(dataUser)
                         finish()
                     }, Response.ErrorListener { error ->
                         try {
@@ -141,11 +149,11 @@ class RegisterActivity : AppCompatActivity() {
                             val errors = JSONObject(responseBody)
                             FancyToast.makeText(
                                 this@RegisterActivity,
-                                errors.getString("Error: message"),
+                                errors.getString("message"),
                                 FancyToast.LENGTH_SHORT,
                                 FancyToast.ERROR,false
                             ).show()
-                        }catch (e: java.lang.Exception){
+                        }catch (e:Exception){
                             Log.d("Error di mana", e.message.toString())
                             FancyToast.makeText(this@RegisterActivity, e.message, FancyToast.LENGTH_LONG, FancyToast.ERROR,false).show()
                         }
@@ -173,9 +181,9 @@ class RegisterActivity : AppCompatActivity() {
                 queue!!.add(stringRequest)
 
                 val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
+//
 
-                moveHome.putExtras(dataUser)
-                startActivity(moveHome)
+//                startActivity(moveHome)
             }
 
         })

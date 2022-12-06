@@ -5,7 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -30,7 +31,6 @@ class AddEditInterviewActivityTest {
 
     @Test
     fun addEditInterviewActivityTest() {
-        pressBack()
 
         val materialButton = onView(
             allOf(
@@ -49,6 +49,7 @@ class AddEditInterviewActivityTest {
             )
         )
         materialButton.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText2 = onView(
             allOf(
@@ -62,7 +63,7 @@ class AddEditInterviewActivityTest {
                 )
             )
         )
-        textInputEditText2.perform(scrollTo(), replaceText("P"), closeSoftKeyboard())
+        textInputEditText2.perform(scrollTo(), replaceText("test"), closeSoftKeyboard())
 
         val materialButton2 = onView(
             allOf(
@@ -81,6 +82,7 @@ class AddEditInterviewActivityTest {
             )
         )
         materialButton2.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText3 = onView(
             allOf(
@@ -94,7 +96,7 @@ class AddEditInterviewActivityTest {
                 )
             )
         )
-        textInputEditText3.perform(scrollTo(), replaceText("P"), closeSoftKeyboard())
+        textInputEditText3.perform(scrollTo(), replaceText("test"), closeSoftKeyboard())
 
         val materialButton3 = onView(
             allOf(
@@ -113,13 +115,14 @@ class AddEditInterviewActivityTest {
             )
         )
         materialButton3.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText = onView(
             allOf(
-                withId(R.id.et_role),
+                withId(R.id.ed_gaji),
                 childAtPosition(
                     childAtPosition(
-                        withId(R.id.layout_role),
+                        withId(R.id.layout_gaji),
                         0
                     ),
                     0
@@ -145,6 +148,7 @@ class AddEditInterviewActivityTest {
             )
         )
         materialButton4.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
 
         val textInputEditText4 = onView(
             allOf(
@@ -158,7 +162,7 @@ class AddEditInterviewActivityTest {
                 )
             )
         )
-        textInputEditText4.perform(scrollTo(), replaceText("P"), closeSoftKeyboard())
+        textInputEditText4.perform(scrollTo(), replaceText("test"), closeSoftKeyboard())
 
         val materialButton5 = onView(
             allOf(
@@ -177,6 +181,7 @@ class AddEditInterviewActivityTest {
             )
         )
         materialButton5.perform(click())
+        onView(isRoot()).perform(waitFor(3000))
     }
 
     private fun childAtPosition(
@@ -193,6 +198,21 @@ class AddEditInterviewActivityTest {
                 val parent = view.parent
                 return parent is ViewGroup && parentMatcher.matches(parent)
                         && view == parent.getChildAt(position)
+            }
+        }
+    }
+    fun waitFor(delay: Long): ViewAction? {
+        return object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return isRoot()
+            }
+
+            override fun getDescription(): String {
+                return "wait for " + delay + "milliseconds"
+            }
+
+            override fun perform(uiController: UiController, view: View) {
+                uiController.loopMainThreadForAtLeast(delay)
             }
         }
     }
