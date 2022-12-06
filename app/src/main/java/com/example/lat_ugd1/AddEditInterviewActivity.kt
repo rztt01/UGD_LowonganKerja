@@ -2,7 +2,6 @@ package com.example.lat_ugd1
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Spannable.Factory
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
@@ -118,66 +117,82 @@ class AddEditInterviewActivity : AppCompatActivity() {
     private fun createInterview() {
         setLoading(true)
 
-        val interview = Interview(
-            etPerusahaan!!.text.toString(),
-            etRole!!.text.toString(),
-            edGaji!!.text.toString(),
-            etDomisili!!.text.toString(),
-        )
+        if(etPerusahaan!!.text.toString().isEmpty()){
+            Toast.makeText(this@AddEditInterviewActivity, "[!] Nama Destinasi Tidak boleh Kosong", Toast.LENGTH_SHORT).show()
+        }
+        else if(etRole!!.text.toString().isEmpty()){
+            Toast.makeText(this@AddEditInterviewActivity, "[!] Role Tidak boleh Kosong", Toast.LENGTH_SHORT).show()
+        }
+        else if(edGaji!!.text.toString().isEmpty()){
+            Toast.makeText(this@AddEditInterviewActivity, "[!] Gaji Tidak boleh Kosong", Toast.LENGTH_SHORT).show()
+        }
+        else if(etDomisili!!.text.toString().isEmpty()){
+            Toast.makeText(this@AddEditInterviewActivity, "[!] Nama Domisili Tidak boleh Kosong", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            val interview = Interview(
+                etPerusahaan!!.text.toString(),
+                etRole!!.text.toString(),
+                edGaji!!.text.toString(),
+                etDomisili!!.text.toString(),
+            )
 
-        val stringRequest: StringRequest =
-            object : StringRequest(Method.POST, InterviewApi.ADD_URL, Response.Listener { response ->
-                val gson = Gson()
-                val interview = gson.fromJson(response, Interview::class.java)
-
-                if (interview != null)
-                    FancyToast.makeText(
-                        this@AddEditInterviewActivity,
-                        "Data Berhasil Ditambahkan",
-                        FancyToast.LENGTH_SHORT,
-                        FancyToast.SUCCESS,false
-                    ).show()
-
-                val returnIntent = Intent()
-                setResult(RESULT_OK, returnIntent)
-                finish()
-
-                setLoading(false)
-            }, Response.ErrorListener { error ->
-                setLoading(false)
-                try {
-                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-                    val errors = JSONObject(responseBody)
-                    FancyToast.makeText( this@AddEditInterviewActivity,
-                        errors.getString("message"),
-                        FancyToast.LENGTH_SHORT,
-                        FancyToast.ERROR,false
-                    ).show()
-                } catch (e: Exception) {
-                    FancyToast.makeText(this@AddEditInterviewActivity, e.message, FancyToast.LENGTH_SHORT,FancyToast.ERROR, false).show()
-                }
-            }) {
-                @Throws(AuthFailureError::class)
-                override fun getHeaders(): Map<String, String> {
-                    val headers = HashMap<String, String>()
-                    headers["Accept"] = "application/json"
-                    return headers
-                }
-
-                @Throws(AuthFailureError::class)
-                override fun getBody(): ByteArray {
+            val stringRequest: StringRequest =
+                object : StringRequest(Method.POST, InterviewApi.ADD_URL, Response.Listener { response ->
                     val gson = Gson()
-                    val requestBody = gson.toJson(interview)
-                    return requestBody.toByteArray(StandardCharsets.UTF_8)
+                    val interview = gson.fromJson(response, Interview::class.java)
+
+                    if (interview != null)
+                        FancyToast.makeText(
+                            this@AddEditInterviewActivity,
+                            "Data Berhasil Ditambahkan",
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.SUCCESS,false
+                        ).show()
+
+                    val returnIntent = Intent()
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
+
+                    setLoading(false)
+                }, Response.ErrorListener { error ->
+                    setLoading(false)
+                    try {
+                        val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        FancyToast.makeText( this@AddEditInterviewActivity,
+                            errors.getString("message"),
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.ERROR,false
+                        ).show()
+                    } catch (e: Exception) {
+                        FancyToast.makeText(this@AddEditInterviewActivity, e.message, FancyToast.LENGTH_SHORT,FancyToast.ERROR, false).show()
+                    }
+                }) {
+                    @Throws(AuthFailureError::class)
+                    override fun getHeaders(): Map<String, String> {
+                        val headers = HashMap<String, String>()
+                        headers["Accept"] = "application/json"
+                        return headers
+                    }
+
+                    @Throws(AuthFailureError::class)
+                    override fun getBody(): ByteArray {
+                        val gson = Gson()
+                        val requestBody = gson.toJson(interview)
+                        return requestBody.toByteArray(StandardCharsets.UTF_8)
+                    }
+
+                    override fun getBodyContentType(): String {
+                        return "application/json"
+                    }
                 }
 
-                override fun getBodyContentType(): String {
-                    return "application/json"
-                }
-            }
+            // Menambahkan request ke request queue
+            queue!!.add(stringRequest)
+        }
+        setLoading(false)
 
-        // Menambahkan request ke request queue
-        queue!!.add(stringRequest)
     }
 
     private fun updateInterview(id: Long) {
