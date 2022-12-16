@@ -47,6 +47,12 @@ class FragmentLocation : Fragment() {
             activity?.finish()
         }
 
+        binding.workExperience.setOnClickListener{
+            val move = Intent(activity, WorkActivity::class.java)
+            startActivity(move)
+            activity?.finish()
+        }
+
     }
 
 
