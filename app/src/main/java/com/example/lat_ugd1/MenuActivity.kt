@@ -23,7 +23,7 @@ class MenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
         val userId = getBundle()
         val fragment1 = FragmentHome()
-        val fragment2 = FragmentLocation()
+        val fragment2 = FragmentLocation(userId)
         val fragment3 = FragmentProfile(userId)
         val fragment4 = FragmentNotification()
 

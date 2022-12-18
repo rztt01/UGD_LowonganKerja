@@ -1,12 +1,20 @@
 package com.example.lat_ugd1
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.lat_ugd1.databinding.ActivityPdfactivityBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.itextpdf.kernel.geom.Line
 import com.squareup.picasso.Picasso
 
 class ShowPerusahaanActivity : AppCompatActivity() {
+    lateinit var bundle: Bundle
+    val dataUser = Bundle()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_perusahaan)
@@ -31,5 +39,19 @@ class ShowPerusahaanActivity : AppCompatActivity() {
             .placeholder(R.drawable.animation)
             .error(R.drawable.img_2)
             .into(imgPicasso)
+
+        val idUser = getBundle()
+        val back = findViewById<FloatingActionButton>(R.id.back)
+        back.setOnClickListener{
+            dataUser.putInt("idUser", idUser)
+            val close = Intent(this@ShowPerusahaanActivity, MenuActivity::class.java)
+            close.putExtra("idUser",dataUser)
+            startActivity(close)
+        }
+    }
+    fun getBundle():Int{
+        bundle = intent.getBundleExtra("idUser")!!
+        var idUser : Int = bundle.getInt("idUser")!!
+        return idUser
     }
 }

@@ -1,6 +1,7 @@
 package com.example.lat_ugd1
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lat_ugd1.databinding.ActivityPdfactivityBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itextpdf.barcodes.BarcodeQRCode
 import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.colors.ColorConstants
@@ -24,6 +26,7 @@ import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
 import com.shashank.sony.fancytoastlib.FancyToast
+import kotlinx.android.synthetic.main.activity_interview.view.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
@@ -34,11 +37,15 @@ import java.time.format.DateTimeFormatter
 
 class PDFActivity : AppCompatActivity() {
     private var binding: ActivityPdfactivityBinding?   = null
+    lateinit var bundle: Bundle
+    val dataUser = Bundle()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPdfactivityBinding.inflate(layoutInflater)
         val view: View = binding!!.root
         setContentView(view)
+
+        val back = view.back
 
         binding!!.buttonSave.setOnClickListener {
             val id = binding!!.editTextId.text.toString()
@@ -63,8 +70,20 @@ class PDFActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
 
-
         }
+        val idUser = getBundle()
+        back.setOnClickListener{
+            dataUser.putInt("idUser", idUser)
+            val close = Intent(this@PDFActivity, MenuActivity::class.java)
+            close.putExtra("idUser",dataUser)
+            startActivity(close)
+        }
+    }
+
+    fun getBundle():Int{
+        bundle = intent.getBundleExtra("idUser")!!
+        var idUser : Int = bundle.getInt("idUser")!!
+        return idUser
     }
 
     @SuppressLint("ObsoleteSdkInt")

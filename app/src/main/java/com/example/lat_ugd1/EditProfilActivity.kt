@@ -41,40 +41,13 @@ class EditProfilActivity : AppCompatActivity() {
 
         binding.btnSave.setOnClickListener { updateUser(idUser)}
 
+        binding.back.setOnClickListener{
+            dataUser.putInt("idUser", idUser)
+            val close = Intent(this@EditProfilActivity, MenuActivity::class.java)
+            close.putExtra("idUser",dataUser)
+            startActivity(close)
+        }
 
-//        sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
-//        val id = sharedPreferences!!.getString(key, "")!!.toInt()
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val user = db?.userDao()?.getUser(id)?.get(0)
-//            withContext(Dispatchers.Main) {
-//                binding.username.setText(user?.username)
-//                binding.email.setText(user?.email)
-//                binding.tglLahir.setText(user?.tanggalLahir)
-//                binding.noTelp.setText(user?.noTelp)
-//            }
-//        }
-//
-//        binding.btnSave.setOnClickListener() {
-//            CoroutineScope(Dispatchers.IO).launch {
-//                db.userDao().updateUser(
-//                    User(
-//                        id,
-//                        binding.username.text.toString(),"",
-//                        binding.email.text.toString(),
-//                        binding.tglLahir.text.toString(),
-//                        binding.noTelp.text.toString()
-//                    )
-//                )
-//            }
-//            finish()
-//            val intent = Intent(this, MenuActivity::class.java)
-//            val bundle = Bundle()
-//            bundle.putString("key", "filled")
-//            intent.putExtra("keyBundle", bundle)
-//            startActivity(intent)
-//
-//        }
     }
 
     fun getBundle():Int{

@@ -32,6 +32,9 @@ class InterviewActivity : AppCompatActivity() {
     private var layoutLoading: LinearLayout? = null
     private var queue: RequestQueue? = null
 
+    lateinit var bundle: Bundle
+    val dataUser = Bundle()
+
     companion object {
         const val LAUNCH_ADD_ACTIVITY = 123
     }
@@ -57,6 +60,15 @@ class InterviewActivity : AppCompatActivity() {
             }
         })
 
+        val idUser = getBundle()
+        val back =findViewById<FloatingActionButton>(R.id.back)
+        back.setOnClickListener{
+            dataUser.putInt("idUser", idUser)
+            val close = Intent(this@InterviewActivity, MenuActivity::class.java)
+            close.putExtra("idUser",dataUser)
+            startActivity(close)
+        }
+
         val fabAdd = findViewById<FloatingActionButton>(R.id.fab_add)
         fabAdd.setOnClickListener {
             val i = Intent(this@InterviewActivity, AddEditInterviewActivity::class.java)
@@ -68,6 +80,12 @@ class InterviewActivity : AppCompatActivity() {
         rvProduk.layoutManager = LinearLayoutManager( this)
         rvProduk.adapter = adapter
         allInterview()
+    }
+
+    fun getBundle():Int{
+        bundle = intent.getBundleExtra("idUser")!!
+        var idUser : Int = bundle.getInt("idUser")!!
+        return idUser
     }
 
     private fun allInterview(){

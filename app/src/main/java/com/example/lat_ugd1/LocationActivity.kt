@@ -1,11 +1,17 @@
 package com.example.lat_ugd1
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.View
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.activity_location.*
+import kotlinx.android.synthetic.main.activity_location.view.*
 import org.json.JSONException
 import org.json.JSONObject
 import org.osmdroid.config.Configuration
@@ -20,9 +26,14 @@ import java.nio.charset.StandardCharsets
 
 
 class LocationActivity : AppCompatActivity() {
+
     var modelMainList: MutableList<ModelLocation> = ArrayList()
     lateinit var mapController: MapController
     lateinit var overlayItem: ArrayList<OverlayItem>
+
+    lateinit var bundle: Bundle
+    val dataUser = Bundle()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +57,23 @@ class LocationActivity : AppCompatActivity() {
         getLocationMarker()
         getLocationMarker2()
 
+        val idUser = getBundle()
+        val imageClose = findViewById(R.id.imgClose) as ImageButton
+
+        imageClose.setOnClickListener{
+
+            dataUser.putInt("idUser", idUser)
+            val close = Intent(this@LocationActivity, MenuActivity::class.java)
+            close.putExtra("idUser",dataUser)
+            startActivity(close)
+        }
+
+    }
+
+    fun getBundle():Int{
+        bundle = intent.getBundleExtra("idUser")!!
+        var idUser : Int = bundle.getInt("idUser")!!
+        return idUser
     }
 
     //get lat long

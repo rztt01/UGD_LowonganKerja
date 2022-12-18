@@ -124,7 +124,10 @@ class FragmentProfile(userId: Int) : Fragment(){
             activity?.finish()
         }
         binding.buttonCamera.setOnClickListener{
+            val dataUser = Bundle()
             val move = Intent(activity, Camera::class.java)
+            dataUser.putInt("idUser", userId)
+            move.putExtra("idUser", dataUser)
             startActivity(move)
             activity?.finish()
         }
