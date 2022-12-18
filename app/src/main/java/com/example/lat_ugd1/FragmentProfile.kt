@@ -4,20 +4,38 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.lat_ugd1.api.UserApi
 import com.example.lat_ugd1.databinding.FragmentProfileBinding
+import com.example.lat_ugd1.models.User
 import com.example.lat_ugd1.room.UserDB
+import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 
-class FragmentProfile : Fragment(){
-    val db by lazy {activity?.let { UserDB(it) }}
-    var iduser = "id_user"
-    var pref = "preference"
+class FragmentProfile(userId: Int) : Fragment(){
+//    val db by lazy {activity?.let { UserDB(it) }}
+//    var iduser = "id_user"
+//    var pref = "preference"
+
+    private var queue : RequestQueue? = null
+    lateinit var bundle: Bundle
+
+    private var userId = userId
 
     private val CHANNEL_ID_1 = "channel_notification_01"
     private val notificationId1 = 101
@@ -38,24 +56,63 @@ class FragmentProfile : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        createNotificationChannel()
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences = activity?.getSharedPreferences(pref, Context.MODE_PRIVATE)
-        val id = sharedPreferences!!.getString(iduser,"")!!.toInt()
+//        sharedPreferences = activity?.getSharedPreferences(pref, Context.MODE_PRIVATE)
+//        val id = sharedPreferences!!.getString(iduser,"")!!.toInt()
+
+        queue = Volley.newRequestQueue(context)
 
         var username = binding.tvUsername
         var email = binding.tvEmail
         var date = binding.tvDate
         var phone = binding.tvPhone
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val user = db?.userDao()?.getUser(id)?.get(0)
-            username.setText(user?.username)
-            email.setText(user?.email)
-            date.setText(user?.tanggalLahir)
-            phone.setText(user?.noTelp)
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val user = db?.userDao()?.getUser(id)?.get(0)
+//            username.setText(user?.username)
+//            email.setText(user?.email)
+//            date.setText(user?.tanggalLahir)
+//            phone.setText(user?.noTelp)
+//        }
+
+        val stringRequest: StringRequest = object : StringRequest(Method.GET, UserApi.GET_BY_ID_URL + userId,
+        Response.Listener { response ->
+                val gson = Gson()
+                val user: User = gson.fromJson(response,User::class.java)
+
+                username.setText(user.username)
+                email.setText(user.email)
+                date.setText(user.tanggalLahir)
+                phone.setText(user.noTelp)
+
+            },Response.ErrorListener { error->
+                try{
+                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        context,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Log.d("Error Login", e.message.toString())
+                    Toast.makeText(context,e.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        ){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String,String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
         }
+
+        queue!!.add(stringRequest)
+
 
         binding.buttonEdit.setOnClickListener{
             val move = Intent(activity, EditProfilActivity::class.java)
+            move.putExtra("idUser", userId)
             startActivity(move)
             activity?.finish()
         }

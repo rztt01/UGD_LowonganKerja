@@ -66,6 +66,7 @@ class RegisterActivity : AppCompatActivity() {
             var checkRegister = false
             val dataUser = Bundle()
 
+            val id: Int? = null
             val username: String = inputUserNameRegister.getEditText()?.getText().toString()
             val password: String = inputPasswordRegister.getEditText()?.getText().toString()
             val confirm: String = inputConfirmPasswordRegister.getText().toString()
@@ -73,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
             val tanggallahir: String =  inputTanggalLahir.getEditText()?.getText().toString()
             val notelp: String = inputNoTelp.getEditText()?.getText().toString()
 
-            val user = User(username, password, email, tanggallahir, notelp )
+            val user = User(id!!,username, password, email, tanggallahir, notelp )
 
             // Pengecekan apakah inputan kosong
 //            if (username.isEmpty()) {

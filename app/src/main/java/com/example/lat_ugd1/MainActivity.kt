@@ -98,6 +98,7 @@ class MainActivity : AppCompatActivity() {
                                 if(username == user.username){
                                     if(password == user.password){
                                         checkLogin = true
+                                        dataUser.putInt("idUser", user.id)
                                         break
                                     }else{
                                         FancyToast.makeText(this@MainActivity, "Password salah", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
@@ -110,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                                 FancyToast.makeText(this@MainActivity, "Login Successful!", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show()
 
                                 val moveHome = Intent(this@MainActivity, MenuActivity::class.java)
-
+                                moveHome.putExtra("idUser", dataUser)
                                 startActivity(moveHome)
                             }
 

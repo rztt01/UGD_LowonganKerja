@@ -11,17 +11,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MenuActivity : AppCompatActivity() {
+    lateinit var bundle: Bundle
     val db by lazy { UserDB(this) }
     lateinit var bottomNavigation: BottomNavigationView
     private lateinit var name: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_menu)
+        val userId = getBundle()
         val fragment1 = FragmentHome()
         val fragment2 = FragmentLocation()
-        val fragment3 = FragmentProfile()
+        val fragment3 = FragmentProfile(userId)
         val fragment4 = FragmentNotification()
 
 
@@ -54,5 +57,11 @@ class MenuActivity : AppCompatActivity() {
             val users = db.userDao().getUser(0)[0]
             name.setText(users.username)
         }
+    }
+
+    fun getBundle():Int{
+        bundle = intent.getBundleExtra("idUser")!!
+        var idUser : Int = bundle.getInt("idUser")!!
+        return idUser
     }
 }
