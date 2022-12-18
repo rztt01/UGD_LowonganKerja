@@ -111,8 +111,10 @@ class FragmentProfile(userId: Int) : Fragment(){
 
 
         binding.buttonEdit.setOnClickListener{
+            val dataUser = Bundle()
             val move = Intent(activity, EditProfilActivity::class.java)
-            move.putExtra("idUser", userId)
+            dataUser.putInt("idUser", userId)
+            move.putExtra("idUser", dataUser)
             startActivity(move)
             activity?.finish()
         }

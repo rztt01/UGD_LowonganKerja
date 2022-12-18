@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         // Aksi pada btnLogin
         btnLogin.setOnClickListener(View.OnClickListener {
             var checkLogin = false
-            val userData = intent.extras
+            val userData = intent.getBundleExtra("dataUser")
             val username: String = inputUserName.getText().toString()
             val password: String = inputPassword.getText().toString()
             val dataUser = Bundle()
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                                 if(username == user.username){
                                     if(password == user.password){
                                         checkLogin = true
-                                        dataUser.putInt("idUser", user.id)
+                                        dataUser.putInt("idUser", user.id!!)
                                         break
                                     }else{
                                         FancyToast.makeText(this@MainActivity, "Password salah", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()

@@ -26,9 +26,6 @@ import com.example.lat_ugd1.databinding.ActivityRegisterBinding
 import com.example.lat_ugd1.models.User
 import com.google.gson.Gson
 import com.shashank.sony.fancytoastlib.FancyToast
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
@@ -74,7 +71,7 @@ class RegisterActivity : AppCompatActivity() {
             val tanggallahir: String =  inputTanggalLahir.getEditText()?.getText().toString()
             val notelp: String = inputNoTelp.getEditText()?.getText().toString()
 
-            val user = User(id!!,username, password, email, tanggallahir, notelp )
+            val user = User(username, password, email, tanggallahir, notelp )
 
             // Pengecekan apakah inputan kosong
 //            if (username.isEmpty()) {
@@ -133,7 +130,7 @@ class RegisterActivity : AppCompatActivity() {
 
                         if (user != null){
                             FancyToast.makeText(this@RegisterActivity, "Data User Berhasi Ditambah", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show()
-//                            sendNotification()
+                         //   sendNotification()
                             dataUser.putString("name", username)
                             dataUser.putString("pass", password)
 
@@ -142,7 +139,7 @@ class RegisterActivity : AppCompatActivity() {
                         val returnIntent = Intent()
                         setResult(RESULT_OK, returnIntent)
                         val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
-                        moveHome.putExtras(dataUser)
+                        moveHome.putExtra("dataUser",dataUser)
                         finish()
                     }, Response.ErrorListener { error ->
                         try {
@@ -181,10 +178,6 @@ class RegisterActivity : AppCompatActivity() {
 
                 queue!!.add(stringRequest)
 
-                val moveHome = Intent(this@RegisterActivity, MainActivity::class.java)
-//
-
-//                startActivity(moveHome)
             }
 
         })
