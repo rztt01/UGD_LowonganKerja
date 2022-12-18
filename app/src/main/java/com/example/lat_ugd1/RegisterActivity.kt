@@ -74,44 +74,55 @@ class RegisterActivity : AppCompatActivity() {
             val user = User(username, password, email, tanggallahir, notelp )
 
             // Pengecekan apakah inputan kosong
-//            if (username.isEmpty()) {
-//                inputUserNameRegister.setError("Username must be filled with text")
-//                checkRegister = false
-//            }
+            if (username.isEmpty()) {
+                FancyToast.makeText(this@RegisterActivity, "Username Kosong", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                checkRegister = false
+            }
 
             // Pengecekan apakah inputan kosong
-//            if (password.isEmpty()) {
-//                inputPasswordRegister.setError("Password must be filled with text")
-//                checkRegister = false
-//            // Pengecekan apakah input confirm password sama dengan password
-//            } else if (!password.equals(confirm)) {
-//                inputConfirmPasswordRegister.setError("Password would not be matched")
-//                checkRegister = false
-//            }
+            if (password.isEmpty()) {
+                FancyToast.makeText(this@RegisterActivity, "Password Kosong", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                checkRegister = false
+            // Pengecekan apakah input confirm password sama dengan password
+            } else if (!password.equals(confirm)) {
+                FancyToast.makeText(this@RegisterActivity, "Konfirmasi Password Tidak Sesuai", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                checkRegister = false
+            }
+
+            if (confirm.isEmpty()) {
+                FancyToast.makeText(this@RegisterActivity, "Konfirmasi Password Kosong", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                checkRegister = false
+            }
+
 
             // Pengecekan apakah inputan kosong
-//            if (email.isEmpty()) {
-//                inputEmailRegister.setError("Email must be filled with text")
-//                checkRegister = false
-//            }
+            if (email.isEmpty()) {
+                FancyToast.makeText(this@RegisterActivity, "Email Kosong", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                checkRegister = false
+            }
 //
 //            // Pengecekan apakah inputan kosong
-//            if (tanggallahir.isEmpty()) {
-//                inputTanggalLahir.setError("Tanggal Lahir must be filled with text")
-//                checkRegister = false
-//            }
+            if (tanggallahir.isEmpty()) {
+                FancyToast.makeText(this@RegisterActivity, "Tanggal Lahir Kosong", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                checkRegister = false
+            }
 //
 //            // Pengecekan apakah inputan kosong
-//            if (notelp.isEmpty()) {
-//                inputNoTelp.setError("Nomor Telpon must be filled with text")
-//                checkRegister = false
-//            }
+            if (notelp.isEmpty()) {
+                FancyToast.makeText(this@RegisterActivity, "Nomor Telpon Kosong", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                checkRegister = false
+            }
 
-//            if(username.isNotEmpty() && password.isNotEmpty() && confirm.isNotEmpty() && email.isNotEmpty() && tanggallahir.isNotEmpty() && notelp.isNotEmpty() && password == confirm) {
-//                dataUser.putString("username", username)
-//                dataUser.putString("password", password)
-//                checkRegister = true
-//            }
+            if (notelp.length < 6){
+                FancyToast.makeText(this@RegisterActivity, "Nomor Telepon Harus Lebih Dari 6", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show()
+                checkRegister = false
+            }
+
+            if(username.isNotEmpty() && password.isNotEmpty() && confirm.isNotEmpty() && email.isNotEmpty() && tanggallahir.isNotEmpty() && notelp.isNotEmpty() && password == confirm) {
+                dataUser.putString("username", username)
+                dataUser.putString("password", password)
+                checkRegister = true
+            }
 
             if(password == confirm) {
                 dataUser.putString("username", username)
