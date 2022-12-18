@@ -164,11 +164,11 @@ class MainActivity : AppCompatActivity() {
         fun setText(){
             inputUserName = findViewById(R.id.inputUsername)
             inputPassword = findViewById(R.id.inputPassword)
-            val userData = intent.extras
+            val userData = intent.getBundleExtra("gataUser")
 
             if(userData!=null){
-                inputUserName.setText(userData.getString("username"))
-                inputPassword.setText(userData.getString("password"))
+                inputUserName.setText(userData.getString("name"))
+                inputPassword.setText(userData.getString("pass"))
             }
         }
     }

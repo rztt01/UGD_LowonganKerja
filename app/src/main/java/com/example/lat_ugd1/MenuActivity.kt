@@ -50,14 +50,6 @@ class MenuActivity : AppCompatActivity() {
             replace(R.id.nav_fragment,fragment)
             commit()
         }
-    fun getUser(){
-        //userId = intent.getIntExtra("intent_id", 0)
-        CoroutineScope(Dispatchers.IO).launch {
-            //sermentara id user 0 karena anggapan user hanya 1 saat ini
-            val users = db.userDao().getUser(0)[0]
-            name.setText(users.username)
-        }
-    }
 
     fun getBundle():Int{
         bundle = intent.getBundleExtra("idUser")!!
